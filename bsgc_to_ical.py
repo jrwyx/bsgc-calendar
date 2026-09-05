@@ -1,11 +1,10 @@
-import json
+import asyncio
 import re
-import urllib.parse
-import urllib.request
 from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
+from playwright.async_api import async_playwright
 
-# Mapeo de categorías con emojis
 CATEGORY_EMOJIS = {
     'Holidays': '🌴',
     'Important Dates': '📌',
@@ -17,123 +16,94 @@ CATEGORY_EMOJIS = {
     'Default': '📅'
 }
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'application/json, text/plain, */*'
+MESES = {
+    'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4,
+    'mayo': 5, 'junio': 6, 'julio': 7, 'agosto': 8,
+    'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12,
+    'january': 1, 'february': 2, 'march': 3, 'april': 4,
+    'may': 5, 'june': 6, 'july': 7, 'august': 8,
+    'september': 9, 'october': 10, 'november': 11, 'december': 12
 }
 
-def get_events_from_wp_api(year, month):
-    """
-    Consulta la API REST oficial de Tribe Events / WordPress en bs-gc.com
-    """
-    # Rango del mes entero
-    start_date = f"{year}-{month:02d}-01 00:00:00"
-    if month == 12:
-        end_date = f"{year+1}-01-01 00:00:00"
-    else:
-        end_date = f"{year}-{month+1:02d}-01 00:00:00"
-
-    params = {
-        'start_date': start_date,
-        'end_date': end_date,
-        'per_page': 100
-    }
-    
-    url = f"https://bs-gc.com/wp-json/tribe/events/v1/events?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers=HEADERS)
-    
-    events_list = []
-    try:
-        with urllib.request.urlopen(req) as response:
-            res_data = json.loads(response.read().decode('utf-8'))
-            if 'events' in res_data:
-                events_list = res_data['events']
-    except Exception as e:
-        print(f"[-] Error en API para {year}-{month:02d}: {e}")
-        
-    return events_list
-
-def clean_html(text):
-    if not text:
-        return ""
-    return re.sub(r'<[^>]+>', '', text).strip()
-
-def parse_and_build_ical(academic_start_year=2026):
+async def scrape_bsgc_calendar():
     cal = Calendar()
     cal.add('prodid', '-//British School of Gran Canaria//School Calendar//ES')
     cal.add('version', '2.0')
     cal.add('x-wr-calname', 'BSGC - Calendario Escolar')
     cal.add('x-wr-timezone', 'Atlantic/Canary')
 
-    months = []
-    # Curso académico: Sep (X) - Ago (X+1)
-    for m in range(9, 13):
-        months.append((academic_start_year, m))
-    for m in range(1, 9):
-        months.append((academic_start_year + 1, m))
+    collected_events = []
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        
+        print("[+] Cargando la web del BSGC...")
+        await page.goto("https://bs-gc.com/es/vida-escolar/calendar-2", wait_until="networkidle", timeout=60000)
+        
+        # Esperar a que el contenedor principal del calendario esté en pantalla
+        await page.wait_for_selector("body", timeout=10000)
+
+        # Capturar el HTML renderizado
+        content = await page.content()
+        soup = BeautifulSoup(content, 'html.parser')
+
+        # Buscar celdas, filas o tarjetas de eventos renderizadas por el widget
+        # Extraer elementos de eventos por texto/patrones de fecha
+        text_lines = [line.strip() for line in soup.get_text().split('\n') if line.strip()]
+        
+        current_year = 2026
+        current_month = 9
+
+        for i, line in enumerate(text_lines):
+            # Detectar mención de días y eventos asociados
+            match_date = re.search(r'(\d{1,2})\s+(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre|January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})', line, re.IGNORECASE)
+            
+            if match_date:
+                day = int(match_date.group(1))
+                month_name = match_date.group(2).lower()
+                year = int(match_date.group(3))
+                month = MESES.get(month_name, 9)
+                
+                # Obtener el título del evento asociado (líneas siguientes)
+                event_title = ""
+                if i + 1 < len(text_lines):
+                    next_line = text_lines[i+1]
+                    if not re.search(r'\d{1,2}\s+[A-Za-z]+\s+\d{4}', next_line) and len(next_line) > 2:
+                        event_title = next_line
+
+                if event_title:
+                    collected_events.append({
+                        'date': datetime(year, month, day),
+                        'title': event_title,
+                        'category': 'Default'
+                    })
+
+        await browser.close()
 
     total_events = 0
-    seen_uids = set()
+    seen = set()
 
-    for year, month in months:
-        print(f"[+] Consultando {year}-{month:02d}...")
-        events = get_events_from_wp_api(year, month)
-        
-        for ev in events:
-            ev_id = ev.get('id')
-            uid = f"bsgc-event-{ev_id}@bs-gc.com"
-            
-            if uid in seen_uids:
-                continue
-            seen_uids.add(uid)
+    for item in collected_events:
+        uid_key = f"{item['date'].strftime('%Y%m%d')}-{item['title']}"
+        if uid_key in seen:
+            continue
+        seen.add(uid_key)
 
-            event = Event()
-            
-            title = ev.get('title', 'Evento BSGC')
-            start_str = ev.get('start_date')  # Formato: 'YYYY-MM-DD HH:MM:SS'
-            end_str = ev.get('end_date')
-            
-            # Obtener categoría si existe
-            categories = ev.get('categories', [])
-            cat_name = categories[0].get('name') if categories else 'Default'
-            
-            emoji = CATEGORY_EMOJIS.get(cat_name, CATEGORY_EMOJIS['Default'])
-            summary = f"{emoji} {clean_html(title)}"
+        event = Event()
+        emoji = CATEGORY_EMOJIS.get(item['category'], CATEGORY_EMOJIS['Default'])
+        event.add('summary', f"{emoji} {item['title']}")
+        event.add('dtstart', item['date'].date())
+        event.add('dtend', item['date'].date() + timedelta(days=1))
+        event.add('uid', f"bsgc-{hash(uid_key)}@bs-gc.com")
 
-            event.add('summary', summary)
-            
-            # Formatear fechas de inicio y fin
-            if start_str:
-                dt_start = datetime.strptime(start_str, '%Y-%m-%d %H:%M:%S')
-                # Si el evento dura todo el día o no tiene hora concreta
-                if ev.get('all_day', False) or '00:00:00' in start_str:
-                    event.add('dtstart', dt_start.date())
-                else:
-                    event.add('dtstart', dt_start)
+        cal.add_component(event)
+        total_events += 1
 
-            if end_str:
-                dt_end = datetime.strptime(end_str, '%Y-%m-%d %H:%M:%S')
-                if ev.get('all_day', False) or '00:00:00' in end_str:
-                    # iCal exige que los eventos de día completo terminen al día siguiente
-                    event.add('dtend', dt_end.date() + timedelta(days=1))
-                else:
-                    event.add('dtend', dt_end)
-
-            description = clean_html(ev.get('description', ''))
-            if description:
-                event.add('description', description)
-
-            event.add('categories', [cat_name])
-            event.add('uid', uid)
-
-            cal.add_component(event)
-            total_events += 1
-
-    output_filename = "bsgc_calendar.ics"
-    with open(output_filename, "wb") as f:
+    with open("bsgc_calendar.ics", "wb") as f:
         f.write(cal.to_ical())
-        
-    print(f"\n[✓] Éxito: {total_events} eventos extraídos e insertados en '{output_filename}'")
+
+    print(f"\n[✓] Extracción completada: {total_events} eventos guardados en 'bsgc_calendar.ics'")
 
 if __name__ == "__main__":
-    parse_and_build_ical(2026)
+    asyncio.run(scrape_bsgc_calendar())
