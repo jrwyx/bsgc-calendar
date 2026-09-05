@@ -1,11 +1,9 @@
-import json
 import re
-import urllib.parse
-import urllib.request
+import requests
+from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from icalendar import Calendar, Event
 
-# Mapeo de categorías con emojis
 CATEGORY_EMOJIS = {
     'Holidays': '🌴',
     'Important Dates': '📌',
@@ -17,123 +15,105 @@ CATEGORY_EMOJIS = {
     'Default': '📅'
 }
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'application/json, text/plain, */*'
+MESES = {
+    'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4,
+    'mayo': 5, 'junio': 6, 'julio': 7, 'agosto': 8,
+    'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12,
+    'january': 1, 'february': 2, 'march': 3, 'april': 4,
+    'may': 5, 'june': 6, 'july': 7, 'august': 8,
+    'september': 9, 'october': 10, 'november': 11, 'december': 12
 }
 
-def get_events_from_wp_api(year, month):
-    """
-    Consulta la API REST oficial de Tribe Events / WordPress en bs-gc.com
-    """
-    # Rango del mes entero
-    start_date = f"{year}-{month:02d}-01 00:00:00"
-    if month == 12:
-        end_date = f"{year+1}-01-01 00:00:00"
-    else:
-        end_date = f"{year}-{month+1:02d}-01 00:00:00"
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8'
+}
 
-    params = {
-        'start_date': start_date,
-        'end_date': end_date,
-        'per_page': 100
-    }
-    
-    url = f"https://bs-gc.com/wp-json/tribe/events/v1/events?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers=HEADERS)
-    
-    events_list = []
-    try:
-        with urllib.request.urlopen(req) as response:
-            res_data = json.loads(response.read().decode('utf-8'))
-            if 'events' in res_data:
-                events_list = res_data['events']
-    except Exception as e:
-        print(f"[-] Error en API para {year}-{month:02d}: {e}")
-        
-    return events_list
-
-def clean_html(text):
-    if not text:
-        return ""
-    return re.sub(r'<[^>]+>', '', text).strip()
-
-def parse_and_build_ical(academic_start_year=2026):
+def scrape_bsgc():
     cal = Calendar()
     cal.add('prodid', '-//British School of Gran Canaria//School Calendar//ES')
     cal.add('version', '2.0')
     cal.add('x-wr-calname', 'BSGC - Calendario Escolar')
     cal.add('x-wr-timezone', 'Atlantic/Canary')
 
-    months = []
-    # Curso académico: Sep (X) - Ago (X+1)
-    for m in range(9, 13):
-        months.append((academic_start_year, m))
-    for m in range(1, 9):
-        months.append((academic_start_year + 1, m))
+    collected_events = []
+    
+    # Recorrer los meses del curso académico (2026-2027)
+    months = [
+        (2026, 9), (2026, 10), (2026, 11), (2026, 12),
+        (2027, 1), (2027, 2), (2027, 3), (2027, 4), (2027, 5), (2027, 6), (2027, 7), (2027, 8)
+    ]
 
-    total_events = 0
-    seen_uids = set()
+    session = requests.Session()
+    session.headers.update(HEADERS)
 
     for year, month in months:
+        url = f"https://bs-gc.com/es/vida-escolar/calendar-2?tribe-bar-date={year}-{month:02d}-01"
         print(f"[+] Consultando {year}-{month:02d}...")
-        events = get_events_from_wp_api(year, month)
         
-        for ev in events:
-            ev_id = ev.get('id')
-            uid = f"bsgc-event-{ev_id}@bs-gc.com"
-            
-            if uid in seen_uids:
+        try:
+            res = session.get(url, timeout=15)
+            if res.status_code != 200:
                 continue
-            seen_uids.add(uid)
 
-            event = Event()
-            
-            title = ev.get('title', 'Evento BSGC')
-            start_str = ev.get('start_date')  # Formato: 'YYYY-MM-DD HH:MM:SS'
-            end_str = ev.get('end_date')
-            
-            # Obtener categoría si existe
-            categories = ev.get('categories', [])
-            cat_name = categories[0].get('name') if categories else 'Default'
-            
-            emoji = CATEGORY_EMOJIS.get(cat_name, CATEGORY_EMOJIS['Default'])
-            summary = f"{emoji} {clean_html(title)}"
+            soup = BeautifulSoup(res.text, 'html.parser')
 
-            event.add('summary', summary)
+            # Buscar bloques de eventos en el calendario
+            events_blocks = soup.find_all(class_=re.compile(r'(type-tribe_events|tribe-events-calendar|event)'))
             
-            # Formatear fechas de inicio y fin
-            if start_str:
-                dt_start = datetime.strptime(start_str, '%Y-%m-%d %H:%M:%S')
-                # Si el evento dura todo el día o no tiene hora concreta
-                if ev.get('all_day', False) or '00:00:00' in start_str:
-                    event.add('dtstart', dt_start.date())
+            for block in events_blocks:
+                title_elem = block.find(class_=re.compile(r'(title|summary|heading)')) or block.find(['h3', 'h4', 'a'])
+                if not title_elem:
+                    continue
+                
+                title = title_elem.get_text(strip=True)
+                if not title or len(title) < 3:
+                    continue
+
+                # Intentar localizar fecha en el bloque
+                time_elem = block.find('time')
+                date_str = time_elem.get('datetime') if time_elem and time_elem.has_attr('datetime') else None
+                
+                if date_str:
+                    try:
+                        ev_date = datetime.strptime(date_str[:10], '%Y-%m-%d')
+                    except ValueError:
+                        ev_date = datetime(year, month, 1)
                 else:
-                    event.add('dtstart', dt_start)
+                    ev_date = datetime(year, month, 1)
 
-            if end_str:
-                dt_end = datetime.strptime(end_str, '%Y-%m-%d %H:%M:%S')
-                if ev.get('all_day', False) or '00:00:00' in end_str:
-                    # iCal exige que los eventos de día completo terminen al día siguiente
-                    event.add('dtend', dt_end.date() + timedelta(days=1))
-                else:
-                    event.add('dtend', dt_end)
+                collected_events.append({
+                    'title': title,
+                    'date': ev_date
+                })
 
-            description = clean_html(ev.get('description', ''))
-            if description:
-                event.add('description', description)
+        except Exception as e:
+            print(f"[-] Error obteniendo {year}-{month:02d}: {e}")
 
-            event.add('categories', [cat_name])
-            event.add('uid', uid)
+    # Generar iCal deduplicando
+    seen = set()
+    total_events = 0
 
-            cal.add_component(event)
-            total_events += 1
+    for item in collected_events:
+        uid_key = f"{item['date'].strftime('%Y%m%d')}-{item['title']}"
+        if uid_key in seen:
+            continue
+        seen.add(uid_key)
 
-    output_filename = "bsgc_calendar.ics"
-    with open(output_filename, "wb") as f:
+        event = Event()
+        emoji = CATEGORY_EMOJIS['Default']
+        event.add('summary', f"{emoji} {item['title']}")
+        event.add('dtstart', item['date'].date())
+        event.add('dtend', item['date'].date() + timedelta(days=1))
+        event.add('uid', f"bsgc-{abs(hash(uid_key))}@bs-gc.com")
+
+        cal.add_component(event)
+        total_events += 1
+
+    with open("bsgc_calendar.ics", "wb") as f:
         f.write(cal.to_ical())
-        
-    print(f"\n[✓] Éxito: {total_events} eventos extraídos e insertados en '{output_filename}'")
+
+    print(f"\n[✓] Completado: {total_events} eventos guardados en 'bsgc_calendar.ics'")
 
 if __name__ == "__main__":
-    parse_and_build_ical(2026)
+    scrape_bsgc()
