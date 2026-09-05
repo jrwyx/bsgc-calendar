@@ -2,9 +2,8 @@ name: Sync BSGC Calendar
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 04:00 AM (Hora Canaria / UTC)
     - cron: '0 4 * * *'
-  workflow_dispatch: # Permite ejecutar manualmente desde el panel de GitHub cuando quieras
+  workflow_dispatch:
 
 jobs:
   sync-calendar:
@@ -32,4 +31,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
           keep_files: false
-          
