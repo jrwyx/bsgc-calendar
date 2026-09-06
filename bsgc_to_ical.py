@@ -27,9 +27,21 @@ CATEGORY_EMOJIS = {
 }
 
 
+def fix_encoding(text):
+  """Fixes double-encoded UTF-8 (mojibake) strings."""
+  if not text:
+    return ''
+  try:
+    # Re-encode latin1 misinterpretations back to raw bytes and decode properly as UTF-8
+    return text.encode('latin1').decode('utf-8')
+  except (UnicodeEncodeError, UnicodeDecodeError):
+    return text
+
+
 def clean_text(text):
   if not text:
     return ''
+  text = fix_encoding(text)
   return re.sub(r'\s+', ' ', text).strip()
 
 
@@ -44,10 +56,8 @@ def scrape_bsgc_month(session, year, month):
       print(f'[-] Error HTTP {res.status_code} al acceder a {year}-{month:02d}')
       return events
 
-    # FIX: Force UTF-8 response encoding to prevent mojibake/garbled text
-    res.encoding = 'utf-8'
-
-    soup = BeautifulSoup(res.text, 'html.parser')
+    # Parse using raw bytes and force utf-8 decoding in BeautifulSoup
+    soup = BeautifulSoup(res.content, 'html.parser', from_encoding='utf-8')
 
     # Buscar celdas de días o contenedores de eventos de JEvents
     cells = soup.find_all(
@@ -60,7 +70,6 @@ def scrape_bsgc_month(session, year, month):
       cells = soup.find_all('td')
 
     for cell in cells:
-      # Buscar todos los enlaces a eventos dentro de la celda
       links = cell.find_all(
           'a',
           href=re.compile(
@@ -72,7 +81,6 @@ def scrape_bsgc_month(session, year, month):
         title = clean_text(link.get_text())
         href = link.get('href', '')
 
-        # Filtrar enlaces vacíos o de navegación
         if (
             not title
             or len(title) < 2
@@ -81,15 +89,12 @@ def scrape_bsgc_month(session, year, month):
         ):
           continue
 
-        # Intentar extraer la fecha precisa (día) desde la URL del enlace: /YYYY/MM/DD/
         day = None
         date_match = re.search(rf'/{year}/{month:02d}/(\d{{1,2}})', href)
         if date_match:
           day = int(date_match.group(1))
 
-        # Si no se encuentra en la URL, buscar en el número del día de la celda
         if not day:
-          # Buscar la cabecera del día en la celda
           day_elem = cell.find(
               ['a', 'span', 'div'], class_=re.compile(r'day|date', re.I)
           )
@@ -98,14 +103,12 @@ def scrape_bsgc_month(session, year, month):
             if d_match:
               day = int(d_match.group(1))
 
-        # Si aún no hay día, intentar extraer del primer número en el texto de la celda
         if not day:
           cell_text = clean_text(cell.text)
           d_match = re.search(r'\b([1-9]|[12][0-9]|3[01])\b', cell_text)
           if d_match:
             day = int(d_match.group(1))
 
-        # Solo guardar el evento si se pudo verificar el día correspondiente
         if day:
           try:
             event_date = datetime(year, month, day)
@@ -129,7 +132,6 @@ def generate_full_ics(start_year=2026):
   session = requests.Session()
   session.headers.update(HEADERS)
 
-  # Definir los 12 meses del curso académico (Septiembre 2026 a Agosto 2027)
   months = []
   for m in range(9, 13):
     months.append((start_year, m))
@@ -152,7 +154,9 @@ def generate_full_ics(start_year=2026):
       seen_uids.add(uid_key)
 
       event = Event()
-      event.add('summary', f"{CATEGORY_EMOJIS['Default']} {title}")
+      # Construct clean text string
+      summary_text = f"{CATEGORY_EMOJIS['Default']} {title}"
+      event.add('summary', summary_text)
       event.add('dtstart', event_date.date())
       event.add('dtend', event_date.date() + timedelta(days=1))
       event.add('uid', f'bsgc-{abs(hash(uid_key))}@bs-gc.com')
@@ -161,8 +165,12 @@ def generate_full_ics(start_year=2026):
       total_events += 1
 
   output_filename = 'bsgc_calendar.ics'
+
+  # Generate ics bytes and write directly without further string conversions
+  ics_bytes = cal.to_ical()
+
   with open(output_filename, 'wb') as f:
-    f.write(cal.to_ical())
+    f.write(ics_bytes)
 
   print(
       f"\n[✓] Proceso completado: {total_events} eventos guardados en"
