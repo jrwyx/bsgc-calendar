@@ -34,7 +34,7 @@ def clean_text(text):
 
 
 def scrape_bsgc_year(session, year):
-    url = f'https://bs-gc.com/es/vida-escolar/calendar-2/eventsbyyear/{year}/-'
+    url = f'https://bs-gc.com/en/school-life/calendar/eventsbyyear/{year}/-'
     print(f'[+] Fetching annual events from: {url}')
 
     events = []
