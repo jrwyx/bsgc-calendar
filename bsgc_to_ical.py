@@ -44,6 +44,9 @@ def scrape_bsgc_month(session, year, month):
       print(f'[-] Error HTTP {res.status_code} al acceder a {year}-{month:02d}')
       return events
 
+    # FIX: Force UTF-8 response encoding to prevent mojibake/garbled text
+    res.encoding = 'utf-8'
+
     soup = BeautifulSoup(res.text, 'html.parser')
 
     # Buscar celdas de días o contenedores de eventos de JEvents
