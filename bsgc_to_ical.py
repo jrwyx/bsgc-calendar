@@ -103,6 +103,8 @@ def generate_full_ics(start_year=2026):
         title = item['title']
         event_date = item['date']
 
+        print(f'[+] Item Title: {title}')
+        
         # Ensure academic range filtering (Sept start_year to Aug start_year + 1)
         if (event_date < datetime(start_year, 9, 1)) or (
             event_date > datetime(start_year + 1, 8, 31)
