@@ -27,21 +27,9 @@ CATEGORY_EMOJIS = {
 }
 
 
-def fix_encoding(text):
-  """Fixes double-encoded UTF-8 (mojibake) strings."""
-  if not text:
-    return ''
-  try:
-    # Re-encode latin1 misinterpretations back to raw bytes and decode properly as UTF-8
-    return text.encode('latin1').decode('utf-8')
-  except (UnicodeEncodeError, UnicodeDecodeError):
-    return text
-
-
 def clean_text(text):
   if not text:
     return ''
-  text = fix_encoding(text)
   return re.sub(r'\s+', ' ', text).strip()
 
 
@@ -56,10 +44,10 @@ def scrape_bsgc_month(session, year, month):
       print(f'[-] Error HTTP {res.status_code} al acceder a {year}-{month:02d}')
       return events
 
-    # Parse using raw bytes and force utf-8 decoding in BeautifulSoup
-    soup = BeautifulSoup(res.content, 'html.parser', from_encoding='utf-8')
+    # Decode using utf-8 directly to prevent character encoding issues
+    html_content = res.content.decode('utf-8', errors='replace')
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-    # Buscar celdas de días o contenedores de eventos de JEvents
     cells = soup.find_all(
         ['td', 'div'],
         class_=re.compile(
@@ -154,9 +142,10 @@ def generate_full_ics(start_year=2026):
       seen_uids.add(uid_key)
 
       event = Event()
-      # Construct clean text string
-      summary_text = f"{CATEGORY_EMOJIS['Default']} {title}"
-      event.add('summary', summary_text)
+      # Pass plain python string directly to summary
+      summary_str = f"{CATEGORY_EMOJIS['Default']} {title}"
+      event.add('summary', summary_str)
+
       event.add('dtstart', event_date.date())
       event.add('dtend', event_date.date() + timedelta(days=1))
       event.add('uid', f'bsgc-{abs(hash(uid_key))}@bs-gc.com')
@@ -166,11 +155,8 @@ def generate_full_ics(start_year=2026):
 
   output_filename = 'bsgc_calendar.ics'
 
-  # Generate ics bytes and write directly without further string conversions
-  ics_bytes = cal.to_ical()
-
   with open(output_filename, 'wb') as f:
-    f.write(ics_bytes)
+    f.write(cal.to_ical())
 
   print(
       f"\n[✓] Proceso completado: {total_events} eventos guardados en"
