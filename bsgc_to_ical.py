@@ -50,26 +50,65 @@ def scrape_bsgc_year(session, year):
         soup = BeautifulSoup(html_content, 'html.parser')
 
         # Find event links containing detailed repeat/day links
-        links = soup.find_all('a', href=re.compile(r'icalrepeat\.detail|eventsbyday|day\.listevents', re.I),)
+        links = soup.find_all("li", class_="ev_td_li")
 
         for link in links:
-            title = clean_text(link.get_text())
-            href = link.get('href', '')
+            # Extract the full text inside the list item
+            text = link.get_text(separator="\n", strip=True)
 
-            # Ignore empty strings or generic navigation links
-            if not title or len(title) < 2 or 'eventsbyyear' in href:
-                continue
+            # 1. Extract Summary & UID / Link
+            a_tag = link.find("a", class_="ev_link_row")
+            summary = a_tag.get_text(strip=True) if a_tag else ""
+            event_url = a_tag["href"] if a_tag and "href" in a_tag.attrs else ""
 
-            # Extract date directly from the link URL: /YYYY/MM/DD/ or /YYYY-MM-DD
-            date_match = re.search(rf'/{year}/(\d{{1,2}})/(\d{{1,2}})', href)
-            if date_match:
-                month = int(date_match.group(1))
-                day = int(date_match.group(2))
-                try:
-                    event_date = datetime(year, month, day)
-                    events.append({'title': title, 'date': event_date})
-                except ValueError:
-                    pass
+            # Extract event ID from link (e.g., /eventdetail/712/... -> 712)
+            event_id_match = re.search(r"/eventdetail/(\d+)/", event_url)
+            event_id = event_id_match.group(1) if event_id_match else ""
+
+            # 2. Extract Category (located after '::')
+            category = text.split("::")[-1].strip() if "::" in text else ""
+
+            # 3. Extract Raw Date/Time Line (first line before the anchor or email)
+            first_line = text.split("\n")[0].strip()
+
+            # Clean off time components if present (e.g. "08:00am - 05:00pm")
+            date_part = re.sub(
+                r"\d{2}:\d{2}(?:am|pm)?\s*-\s*\d{2}:\d{2}(?:am|pm)?", "", first_line
+            ).strip()
+
+            # Remove weekday names (Saturday, Monday, etc.)
+            date_part_no_days = re.sub(
+                r"\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b",
+                "",
+                date_part,
+            ).strip()
+
+            # Parse Start and End Dates
+            if "-" in date_part_no_days:
+                # Multi-day event: e.g. "20 December 2025 - 07 January 2026"
+                parts = date_part_no_days.split("-")
+                start_date = parse_date_str(parts[0])
+                end_date = parse_date_str(parts[1])
+            else:
+                # Single-day event: e.g. "08 January 2026"
+                start_date = parse_date_str(date_part_no_days)
+                end_date = start_date
+                
+            events.append(
+                    {
+                        "id": event_id,
+                        "uid": f"bsgc-{event_id}@bs-gc.com" if event_id else "",
+                        "summary": summary,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        "category": category,
+                        "url": event_url,
+                    }
+                )
+
+            # --- Verification Output ---
+            for ev in events[:5]:  # Print first 5 events
+                print(ev)
 
     except Exception as e:
         print(f'[-] Exception scraping year {year}: {e}')
