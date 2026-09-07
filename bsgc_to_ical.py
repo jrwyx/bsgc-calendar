@@ -46,6 +46,7 @@ def scrape_bsgc_year(session, year):
 
         # Parse static HTML response
         html_content = res.content.decode('utf-8', errors='replace')
+        print(f'[+] html_content: {html_content}')
         soup = BeautifulSoup(html_content, 'html.parser')
 
         # Find event links containing detailed repeat/day links
