@@ -110,13 +110,13 @@ def scrape_bsgc_year(session, year):
                     }
                 )
 
-            # --- Verification Output ---
-            for ev in events[:5]:  # Print first 5 events
-                print(ev)
-
     except Exception as e:
         print(f'[-] Exception scraping year {year}: {e}')
-
+            
+    # --- Verification Output ---
+    for ev in events[:5]:  # Print first 5 events
+        print(ev)
+        
     return events
 
 
