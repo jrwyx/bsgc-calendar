@@ -16,13 +16,13 @@ HEADERS = {
 }
 
 CATEGORY_EMOJIS = {
-    'Holidays': '🌴',
-    'Important Dates': '📌',
-    'Exams': '📝',
-    'Meetings': '👥',
-    'School Events': '🎉',
-    'Field Trips': '🚌',
-    'Sports': '⚽',
+    'Holidays - Festivos': '🌴',
+    'Important Dates - Fechas Destacadas': '📌',
+    'Exams - Exámenes': '📝',
+    'Meetings - Reuniones': '👥',
+    'School Events - Eventos Escolares': '🎉',
+    'Field Trips - Excursiones': '🚌',
+    'Sports - Deportes': '⚽',
     'Default': '📅',
 }
 
