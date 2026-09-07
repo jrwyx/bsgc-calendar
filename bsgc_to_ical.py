@@ -34,7 +34,7 @@ def clean_text(text):
 
 
 def scrape_bsgc_year(session, year):
-    url = f'https://bs-gc.com/en/school-life/calendar/eventsbyyear/{year}/-'
+    url = f'https://bs-gc.com/en/school-life/calendar/eventsbyyear/{year}/-?limit=all'
     print(f'[+] Fetching annual events from: {url}')
 
     events = []
@@ -50,12 +50,7 @@ def scrape_bsgc_year(session, year):
         soup = BeautifulSoup(html_content, 'html.parser')
 
         # Find event links containing detailed repeat/day links
-        links = soup.find_all(
-            'a',
-            href=re.compile(
-                r'icalrepeat\.detail|eventsbyday|day\.listevents', re.I
-            ),
-        )
+        links = soup.find_all('a', href=re.compile(r'icalrepeat\.detail|eventsbyday|day\.listevents', re.I),)
 
         for link in links:
             title = clean_text(link.get_text())
