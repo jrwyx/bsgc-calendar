@@ -128,8 +128,8 @@ def generate_full_ics(start_year=2026):
     cal.add('x-wr-timezone', 'Atlantic/Canary')
 
     # Define academic boundaries at the very beginning of the function
-    academic_start = date(start_year, 9, 1)
-    academic_end = date(start_year + 1, 8, 31)
+    academic_start = datetime(start_year, 9, 1).date()
+    academic_end = datetime(start_year + 1, 8, 31).date()
 
     session = requests.Session()
     session.headers.update(HEADERS)
