@@ -1,5 +1,5 @@
 import re
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 import requests
 from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
@@ -128,8 +128,8 @@ def generate_full_ics(start_year=2026):
     cal.add('x-wr-timezone', 'Atlantic/Canary')
 
     # Define academic boundaries at the very beginning of the function
-    academic_start = datetime(start_year, 9, 1).date()
-    academic_end = datetime(start_year + 1, 8, 31).date()
+    academic_start = date(start_year, 9, 1)
+    academic_end = date(start_year + 1, 8, 31)
 
     session = requests.Session()
     session.headers.update(HEADERS)
