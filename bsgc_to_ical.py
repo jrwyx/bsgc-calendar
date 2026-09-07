@@ -37,6 +37,11 @@ def scrape_bsgc_year(session, year):
     url = f'https://bs-gc.com/en/school-life/calendar/eventsbyyear/{year}/-?limit=all'
     print(f'[+] Fetching annual events from: {url}')
 
+def parse_date_str(date_str):
+    """Converts '01 January 2026' to a datetime object."""
+    date_str = date_str.strip()
+    return datetime.strptime(date_str, "%d %B %Y").date()
+
     events = []
     try:
         res = session.get(url, timeout=20)
