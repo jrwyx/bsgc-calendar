@@ -139,28 +139,37 @@ def generate_full_ics(start_year=2026):
     seen_uids = set()
 
     for item in scraped_events:
-        title = item['title']
-        event_date = item['date']
 
-        print(f'[+] Item Title: {title}')
+        summary = item['summary']
+        start_date = item['start_date']
+        end_date = item['end_date']
+        category = item['category']
+
+        #print(f'[+] Item Summary: {summary}')
         
-        # Ensure academic range filtering (Sept start_year to Aug start_year + 1)
-        if (event_date < datetime(start_year, 9, 1)) or (
-            event_date > datetime(start_year + 1, 8, 31)
-        ):
+        # Filter out events outside the academic year
+        if start_date < academic_start or start_date > academic_end:
             continue
 
-        uid_key = f"{event_date.strftime('%Y-%m-%d')}-{title}"
-        if uid_key in seen_uids:
+        uid = item['uid'] or f'bsgc-{abs(hash(summary + str(start_date)))}@bs-gc.com'
+        if uid in seen_uids:
             continue
-        seen_uids.add(uid_key)
+        seen_uids.add(uid)
+
+        # Select category emoji
+        emoji = CATEGORY_EMOJIS.get(category, CATEGORY_EMOJIS['Default'])
+        summary_str = f'{emoji} {summary}'
 
         event = Event()
-        summary_str = f"{CATEGORY_EMOJIS['Default']} {title}"
+        event.add('uid', uid)
+        event.add('dtstamp', datetime.now(timezone.utc))
         event.add('summary', summary_str)
-        event.add('dtstart', event_date.date())
-        event.add('dtend', event_date.date() + timedelta(days=1))
-        event.add('uid', f'bsgc-{abs(hash(uid_key))}@bs-gc.com')
+        event.add('dtstart', start_date)
+        # RFC 5545 end date is exclusive for all-day events
+        event.add('dtend', end_date + timedelta(days=1))
+
+        if category:
+            event.add('categories', [category])
 
         cal.add_component(event)
         total_events += 1
@@ -170,10 +179,7 @@ def generate_full_ics(start_year=2026):
     with open(output_filename, 'wb') as f:
         f.write(cal.to_ical())
 
-    print(
-        f"\n[✓] Finished: {total_events} detailed events saved to"
-        f" '{output_filename}'."
-    )
+    print(f"\n[✓] Finished: {total_events} events saved to '{output_filename}'.")
 
 
 if __name__ == '__main__':
