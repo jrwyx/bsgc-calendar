@@ -148,6 +148,7 @@ def generate_full_ics(start_year=2026):
         start_date = item['start_date']
         end_date = item['end_date']
         category = item['category']
+        url = item['event_url']
 
         #print(f'[+] Item Summary: {summary}')
         
@@ -175,6 +176,15 @@ def generate_full_ics(start_year=2026):
         if category:
             event.add('categories', [category])
 
+        if item.get("url"):
+            # Construct full URL if relative path
+            full_url = (
+                item["url"]
+                if item["url"].startswith("http")
+                else f"https://bs-gc.com{item['url']}"
+            )
+            event.add('url', [full_url])
+            
         cal.add_component(event)
         total_events += 1
 
