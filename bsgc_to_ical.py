@@ -1,6 +1,7 @@
 import re
 from datetime import date, datetime, timedelta, timezone
 import requests
+import base64
 from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
 
@@ -26,6 +27,19 @@ CATEGORY_EMOJIS = {
     'Default': '📅',
 }
 
+def decode_joomla_email(hidden_mail_tag):
+    """Extracts and decodes email from a <joomla-hidden-mail> tag."""
+    try:
+        first_b64 = hidden_mail_tag.get("first", "")
+        last_b64 = hidden_mail_tag.get("last", "")
+
+        if first_b64 and last_b64:
+            first = base64.b64decode(first_b64).decode("utf-8")
+            last = base64.b64decode(last_b64).decode("utf-8")
+            return f"{first}@{last}"
+    except Exception:
+        pass
+    return None
 
 def clean_text(text):
     if not text:
@@ -74,6 +88,11 @@ def scrape_bsgc_year(session, year):
 
             # 3. Extract Raw Date/Time Line (first line before the anchor or email)
             first_line = text.split("\n")[0].strip()
+            
+            # 4. Extract and decode hidden email Organizer
+            hidden_email_tag = link.find("joomla-hidden-mail")
+            if hidden_email_tag:
+                organizer = decode_joomla_email(hidden_email_tag)
 
             # Clean off time components if present (e.g. "08:00am - 05:00pm")
             date_part = re.sub(
@@ -107,6 +126,7 @@ def scrape_bsgc_year(session, year):
                         "end_date": end_date,
                         "category": category,
                         "url": event_url,
+                        "organizer": organizer,
                     }
                 )
 
@@ -149,6 +169,7 @@ def generate_full_ics(start_year=2026):
         end_date = item['end_date']
         category = item['category']
         url = item['url']
+        organizer = item['organizer']
 
         #print(f'[+] Item Summary: {summary}')
         
@@ -173,7 +194,7 @@ def generate_full_ics(start_year=2026):
         # RFC 5545 end date is exclusive for all-day events
         event.add('dtend', end_date + timedelta(days=1))
 
-        # Construct and attach URL & Description
+        # Construct Category, URL & Organizer
         desc_lines = []
         if category:
             desc_lines.append(f"Category: {category}")
@@ -186,13 +207,17 @@ def generate_full_ics(start_year=2026):
                 if item["url"].startswith("http")
                 else f"https://bs-gc.com{item['url']}"
             )
-
+            # Append the link line to description
+            desc_lines.append(full_url)
             # Add standard URL property for Apple Calendar / Outlook
             event.add("url", full_url)
 
-            # Append the link line to description
-            desc_lines.append(f"{full_url}")
+        if organizer:
+            desc_lines.append(f"Organizer: {organizer}")
+            # Add standard ORGANIZER property
+            event.add("organizer", organizer)
 
+        # Construct Description
         if desc_lines:
             event.add("description", "\n\n".join(desc_lines))    
         
