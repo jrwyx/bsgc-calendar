@@ -178,7 +178,7 @@ def generate_full_ics(start_year=2026):
         if category:
             desc_lines.append(f"Category: {category}")
             # Add standard CATEGORIES property
-            event.add("categories", category)
+            event.add("categories", [category])
 
         if item.get("url"):
             full_url = (
