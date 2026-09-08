@@ -173,18 +173,27 @@ def generate_full_ics(start_year=2026):
         # RFC 5545 end date is exclusive for all-day events
         event.add('dtend', end_date + timedelta(days=1))
 
+        # Construct and attach URL & Description
+        desc_lines = []
         if category:
-            event.add('categories', [category])
+            desc_lines.append(f"Categoría: {category}")
 
         if item.get("url"):
-            # Construct full URL if relative path
             full_url = (
                 item["url"]
                 if item["url"].startswith("http")
                 else f"https://bs-gc.com{item['url']}"
             )
-            event.add('url', [full_url])
-            
+
+            # Add standard URL property for Apple Calendar / Outlook
+            event.add("url", full_url)
+
+            # Append the link line to description
+            desc_lines.append(f"Más información: {full_url}")
+
+        if desc_lines:
+            event.add("description", "\n".join(desc_lines))    
+        
         cal.add_component(event)
         total_events += 1
 
