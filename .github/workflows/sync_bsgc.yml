@@ -2,7 +2,7 @@ name: Sync BSGC Calendar
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */5 * * *'
   workflow_dispatch:
 
 jobs:
@@ -11,6 +11,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      # --- Random Offset Step ---
+      - name: Wait for random time delay
+        run: |
+          # Generates a random number of seconds between 0 and 3600 (0 to 60 minutes)
+          DELAY=$((RANDOM % 3600))
+          echo "Delaying execution by $DELAY seconds ($(($DELAY / 60)) minutes)..."
+          sleep $DELAY
 
       - name: Set up Python
         uses: actions/setup-python@v4
