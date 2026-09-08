@@ -114,8 +114,8 @@ def scrape_bsgc_year(session, year):
         print(f'[-] Exception scraping year {year}: {e}')
             
     # --- Verification Output ---
-    for ev in events[:5]:  # Print first 5 events
-        print(ev)
+    #for ev in events[:5]:  # Print first 5 events
+    #    print(ev)
         
     return events
 
@@ -148,7 +148,7 @@ def generate_full_ics(start_year=2026):
         start_date = item['start_date']
         end_date = item['end_date']
         category = item['category']
-        url = item['event_url']
+        url = item['url']
 
         #print(f'[+] Item Summary: {summary}')
         
