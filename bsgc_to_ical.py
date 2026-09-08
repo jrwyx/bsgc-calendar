@@ -191,10 +191,10 @@ def generate_full_ics(start_year=2026):
             event.add("url", full_url)
 
             # Append the link line to description
-            desc_lines.append(f"URL: {full_url}")
+            desc_lines.append(f"{full_url}")
 
         if desc_lines:
-            event.add("description", "\n".join(desc_lines))    
+            event.add("description", "\n\n".join(desc_lines))    
         
         cal.add_component(event)
         total_events += 1
