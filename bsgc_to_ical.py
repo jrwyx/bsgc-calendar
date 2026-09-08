@@ -176,7 +176,9 @@ def generate_full_ics(start_year=2026):
         # Construct and attach URL & Description
         desc_lines = []
         if category:
-            desc_lines.append(f"Categoría: {category}")
+            desc_lines.append(f"Category: {category}")
+            # Add standard CATEGORY property
+            event.add("category", category)
 
         if item.get("url"):
             full_url = (
@@ -189,7 +191,7 @@ def generate_full_ics(start_year=2026):
             event.add("url", full_url)
 
             # Append the link line to description
-            desc_lines.append(f"Más información: {full_url}")
+            desc_lines.append(f"URL: {full_url}")
 
         if desc_lines:
             event.add("description", "\n".join(desc_lines))    
