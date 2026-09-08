@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 import requests
 import base64
 from bs4 import BeautifulSoup
-from icalendar import Calendar, Event
+from icalendar import Calendar, Event, vCalAddress, vText
 
 HEADERS = {
     'User-Agent': (
@@ -92,7 +92,9 @@ def scrape_bsgc_year(session, year):
             # 4. Extract and decode hidden email Organizer
             hidden_email_tag = link.find("joomla-hidden-mail")
             if hidden_email_tag:
-                organizer = decode_joomla_email(hidden_email_tag)
+                organizer = decode_joomla_email(hidden_email_tag) or ''
+            else:
+                organizer = ''
 
             # Clean off time components if present (e.g. "08:00am - 05:00pm")
             date_part = re.sub(
@@ -214,8 +216,10 @@ def generate_full_ics(start_year=2026):
 
         if organizer:
             desc_lines.append(f"Organizer: {organizer}")
-            # Add standard ORGANIZER property
-            event.add("organizer", organizer)
+            # Add standard ORGANIZER property according to RFC 5545
+            organizer_addr = vCalAddress(f'mailto:{organizer}')
+            organizer_addr.params['cn'] = vText('BSGC')
+            event.add('organizer', organizer_addr)
 
         # Construct Description
         if desc_lines:
