@@ -106,7 +106,7 @@ def scrape_bsgc_year(session, year):
                         "start_date": start_date,
                         "end_date": end_date,
                         "category": category,
-                        "url": url,
+                        "url": event_url,
                     }
                 )
 
