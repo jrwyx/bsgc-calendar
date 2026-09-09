@@ -36,12 +36,11 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 To add this calendar to your calendar app:
 
 1. Copy the raw `.ics` URL link from GitHub Pages:   
-    - http://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
+    - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 
 2. Apple Calendar / iOS:
 - Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
-- Paste the link copied in step 1, above (you can change https:// to webcal:// if prompted).
-
+- Paste the link copied in step 1 (webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics)
 3. Google Calendar:
 - Go to Other calendars (+) -> From URL.
 - Paste the link shown below and click 'Add calendar'
