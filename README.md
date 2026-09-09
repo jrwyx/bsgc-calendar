@@ -14,7 +14,7 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
   - Dynamic `URL` properties pointing directly to event details on the school site.
 - **Hidden Email Parsing:** Automatically decodes Joomla's obfuscated `<joomla-hidden-mail>` tags to extract contact emails.
 - **Cross-Platform Compatibility:** Embeds full links and details in the `DESCRIPTION` field to ensure visibility in Google Calendar (which often ignores raw URL tags).
-- **Automated Updates:** Powered by GitHub Actions to scrape and refresh the feed every 6 hours with a randomized execution delay.
+- **Automated Updates:** Powered by GitHub Actions to scrape and refresh the feed every 5-6 hours, with a randomized execution delay.
 
 
 ⚙️ <ins>**HOW AUTOMATION WORKS**</ins>
