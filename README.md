@@ -20,9 +20,9 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
 ⚙️ <ins>**HOW AUTOMATION WORKS**</ins>
 
 The workflow (.github/workflows/update_calendar.yml) executes automatically:
-    - Every 6 hours via GitHub Actions cron.
-    - Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
-    - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
+- Every 6 hours via GitHub Actions cron.
+- Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
+- Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
 
 
 🔗 <ins>**HOW TO SUBSCRIBE**</ins>
