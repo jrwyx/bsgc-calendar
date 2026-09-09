@@ -35,12 +35,12 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 
 To add this calendar to your calendar app:
 
-1. Apple Calendar / iOS:
+**1. Apple Calendar / iOS:**
 - Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
 - Paste the following link:
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
   
-2. Google Calendar Desktop:
+**2. Google Calendar Desktop:**
 
 The Google Calendar app for Android does not natively The Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
 - Go to Other calendars (+) -> From URL.
