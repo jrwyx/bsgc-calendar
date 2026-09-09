@@ -42,7 +42,8 @@ To add this calendar to your calendar app:
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 - Tap Subscribe (or Find on iOS 26)
 - Set a name, color, and choose iCloud as the account so it syncs across your Apple devices
-- Tap Add
+- Tap Add.
+
 **- Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar. 
   
 **2. Google Calendar Desktop Website:**
