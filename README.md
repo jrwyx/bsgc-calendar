@@ -52,8 +52,8 @@ Alternatively:
 **2. Google Calendar Desktop Website:**
 
 - Open and log into your Google Calendar account in a web browser on a computer.
-- On the left sidebar, under Other calendars, click the + icon and select From URL.
-- Paste the link shown below and click 'Add calendar'.
+- On the left sidebar, under "Other calendars", click the + icon and select "From URL".
+- Paste the link shown below and click "Add calendar".
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
  
 **3. Sync to Android:**
