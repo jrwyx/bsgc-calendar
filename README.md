@@ -1,11 +1,10 @@
-# 📅 BSGC School Calendar ICS Feed
+**📅 BSGC School Calendar ICS Feed**
 
 An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) website. 
 It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
 
----
 
-✨ FEATURES
+**✨ FEATURES**
 
 - **Emoji Categorization:** Prefixes event summaries with intuitive emojis based on event types (e.g., 🌴 Festivos, 📝 Exámenes, 🚌 Excursiones).
 - **Time Transparency:** Configured with `TRANSP:TRANSPARENT` so all-day events do not block off user availability as "Busy".
@@ -18,17 +17,15 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
 - **Automated Updates:** Powered by GitHub Actions to scrape and refresh the feed every 6 hours with a randomized execution delay.
 
 
-⚙️ HOW AUTOMATION WORKS
+**⚙️ HOW AUTOMATION WORKS**
 
 The workflow (.github/workflows/update_calendar.yml) executes automatically:
-
     - Every 6 hours via GitHub Actions cron.
     - Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
     - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
 
----
 
-🔗 HOW TO SUBSCRIBE
+**🔗 HOW TO SUBSCRIBE**
 
 To add this calendar to your calendar app:
 
