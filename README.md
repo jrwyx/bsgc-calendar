@@ -36,6 +36,10 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 To add this calendar to your calendar app:
 
 **1. Apple Calendar / iOS 18+:**
+**Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar.
+
+Alternatively:
+
 - Open Calendar → tap Calendars (bottom of screen)
 - Tap Add Calendar → Add Subscription Calendar.
 - Paste the following URL link:
@@ -43,7 +47,6 @@ To add this calendar to your calendar app:
 - Tap Subscribe (or Find on iOS 26)
 - Set a name, color, and choose iCloud as the account so it syncs across your Apple devices.
 - Tap Add.
-- **Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar. 
   
 **2. Google Calendar Desktop Website:**
 
