@@ -33,12 +33,13 @@ To add this calendar to your calendar app:
     http://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 
 2. Apple Calendar / iOS:
-    Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
-    Paste the link (you can change https:// to webcal:// if prompted).
+- Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
+- Paste the link above (you can change https:// to webcal:// if prompted).
 
 3. Google Calendar:
-    Go to Other calendars (+) -> From URL.
-    Paste the link above and click Add calendar (webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics).
+- Go to Other calendars (+) -> From URL.
+- Paste the link below and click Add calendar
+  - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 
 Note on Google Calendar Sync:
 - Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours.
