@@ -1,8 +1,8 @@
 📅 <ins>**BSGC School Calendar ICS Feed**</ins>
 
-  An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) **CALENDAR** [website](https://bs-gc.com/en/school-life/calendar).
+An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) **CALENDAR** [website](https://bs-gc.com/en/school-life/calendar).
 
-  It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
+It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
 
 <ins>**DISCLAIMER**</ins>
 - No Guarantee of Stability: This project is experimental and APIs are not considered stable.
@@ -25,7 +25,7 @@
 
 ⚙️ <ins>**HOW AUTOMATION WORKS**</ins>
 
-  The workflow (.github/workflows/update_calendar.yml) executes automatically:
+The workflow (.github/workflows/update_calendar.yml) executes automatically:
 - Every 5-6 hours via GitHub Actions cron.
 - Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
 - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
@@ -33,7 +33,7 @@
 
 🔗 <ins>**HOW TO SUBSCRIBE**</ins>
 
-  To add this calendar to your calendar app:
+To add this calendar to your calendar app:
 
 1. Apple Calendar / iOS:
 - Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
@@ -41,7 +41,7 @@
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
   
 2. Google Calendar Desktop:
-  The Google Calendar app for Android does not natively The Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
+The Google Calendar app for Android does not natively The Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
 - Go to Other calendars (+) -> From URL.
 - Paste the link shown below and click 'Add calendar'
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
