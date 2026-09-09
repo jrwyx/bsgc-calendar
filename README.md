@@ -40,12 +40,21 @@ To add this calendar to your calendar app:
 - Paste the following link:
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
   
-**2. Google Calendar Desktop:**
+**2. Google Calendar Desktop Website:**
 
-The Google Calendar app for Android does not natively The Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
-- Go to Other calendars (+) -> From URL.
+- Open and log into your Google Calendar account in a web browser on a computer.
+- On the left sidebar, under Other calendars, click the + icon and select From URL.
 - Paste the link shown below and click 'Add calendar'
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
+ 
+**3. Sync to Android:**
+
+The  Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
+- Open the Google Calendar app on your Android device.
+- Tap the Menu icon (three lines) and go to Settings.
+- Find the newly added calendar in the list (you may need to tap Show more).
+- Tap the calendar name and ensure the Sync toggle is turned On.
+- The events will then populate on your phone.
 
 Note on Google Calendar Sync:
 - Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours :cry:
