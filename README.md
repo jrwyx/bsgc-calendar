@@ -36,6 +36,7 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 To add this calendar to your calendar app:
 
 **1. Apple Calendar / iOS 18+:**
+
 **Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar.
 
 Alternatively:
