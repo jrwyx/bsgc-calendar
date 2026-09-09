@@ -35,10 +35,15 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 
 To add this calendar to your calendar app:
 
-**1. Apple Calendar / iOS:**
-- Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
-- Paste the following link:
+**1. Apple Calendar / iOS 18+:**
+- Open Calendar → tap Calendars (bottom of screen)
+- Tap Add Calendar → Add Subscription Calendar
+- Paste the following URL link:
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
+- Tap Subscribe (or Find on iOS 26)
+- Set a name, color, and choose iCloud as the account so it syncs across your Apple devices
+- Tap Add
+**- Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar. 
   
 **2. Google Calendar Desktop Website:**
 
