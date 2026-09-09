@@ -1,6 +1,6 @@
 📅 <ins>**BSGC School Calendar ICS Feed**</ins>
 
-An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) **[CALENDAR]**(https://bs-gc.com/en/school-life/calendar) website. 
+An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) **CALENDAR** [website.](https://bs-gc.com/en/school-life/calendar)
 It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
 
 <ins>**DISCLAIMER**</ins>
