@@ -37,20 +37,19 @@ To add this calendar to your calendar app:
 
 **1. Apple Calendar / iOS 18+:**
 - Open Calendar → tap Calendars (bottom of screen)
-- Tap Add Calendar → Add Subscription Calendar
+- Tap Add Calendar → Add Subscription Calendar.
 - Paste the following URL link:
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 - Tap Subscribe (or Find on iOS 26)
-- Set a name, color, and choose iCloud as the account so it syncs across your Apple devices
+- Set a name, color, and choose iCloud as the account so it syncs across your Apple devices.
 - Tap Add.
-
-**- Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar. 
+- **Quick shortcut:** Just tap the webcal:// link in Safari or Mail — iOS will automatically prompt you to add it to Calendar. 
   
 **2. Google Calendar Desktop Website:**
 
 - Open and log into your Google Calendar account in a web browser on a computer.
 - On the left sidebar, under Other calendars, click the + icon and select From URL.
-- Paste the link shown below and click 'Add calendar'
+- Paste the link shown below and click 'Add calendar'.
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
  
 **3. Sync to Android:**
