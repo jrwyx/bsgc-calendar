@@ -49,7 +49,7 @@ To add this calendar to your calendar app:
  
 **3. Sync to Android:**
 
-The  Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone.
+The  Google Calendar app for Android does not natively support directly subscribing to webcal:// links or adding calendar URLs from within the mobile interface.  To add a webcal feed to an Android device, you must subscribe via the Google Calendar desktop website first, then sync it to your phone, tablet, etc.
 - Open the Google Calendar app on your Android device.
 - Tap the Menu icon (three lines) and go to Settings.
 - Find the newly added calendar in the list (you may need to tap Show more).
