@@ -7,7 +7,7 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
 - No Guarantee of Stability: This project is experimental and APIs are not considered stable.
 - Educational Use: This software is provided for educational or demonstration purposes only.
 - No Support: The author provides no warranty or support for this code.
-- Read the file LICENSE.txt
+- Read the file [link LICENSE.txt](https://github.com/jrwyx/bsgc-calendar/edit/main/LICENSE.txt)
 
 ✨ <ins>**FEATURES**</ins>
 
