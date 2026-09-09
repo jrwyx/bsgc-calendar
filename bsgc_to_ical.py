@@ -196,6 +196,9 @@ def generate_full_ics(start_year=2026):
         # RFC 5545 end date is exclusive for all-day events
         event.add('dtend', end_date + timedelta(days=1))
 
+        # Set time block to show as "Available" (Free / Transparent)
+        event.add('transp', 'TRANSPARENT')
+
         # Construct Category, URL & Organizer
         desc_lines = []
         if category:
