@@ -29,23 +29,25 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 
 To add this calendar to your calendar app:
 
-1. Copy the raw `.ics` URL from GitHub Pages:   
-    http://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
+1. Copy the raw `.ics` URL link from GitHub Pages:   
+    - http://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 
 2. Apple Calendar / iOS:
 - Go to Settings -> Calendar -> Accounts -> Add Account -> Other -> Add Subscribed Calendar.
-- Paste the link above (you can change https:// to webcal:// if prompted).
+- Paste the link copied in step 1, above (you can change https:// to webcal:// if prompted).
 
 3. Google Calendar:
 - Go to Other calendars (+) -> From URL.
-- Paste the link below and click Add calendar
+- Paste the link shown below and click 'Add calendar'
   - webcal://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics
 
 Note on Google Calendar Sync:
-- Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours.
-- Workarounds for Faster Updates
-  - Use an alternative calendar app: Switch to apps like Apple Calendar or Microsoft Outlook, which support much more frequent or user-adjustable refresh intervals (ranging from 5 minutes to a few hours) for subscribed feeds.
-  - Using the open-source tool GAS-ICS-Sync on GitHub is the best programmatic way to bypass Google’s 12–24 hour caching rule.
+- Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours :cry:
+
+**Workarounds for Faster Google Calendar Updates**
+- Use an alternative calendar app:
+    - Switch to apps like Apple Calendar or Microsoft Outlook, which support much more frequent or user-adjustable refresh intervals (ranging from 5 minutes to a few hours) for subscribed feeds.
+- Using the open-source tool GAS-ICS-Sync on GitHub is the best programmatic way to bypass Google’s 12–24 hour caching rule.
     -  https://github.com/derekantrican/GAS-ICS-Sync
     -  Instead of treating the link as an external subscription feed, the script downloads the .ics file directly, parses the events, and injects them directly into your Google Calendar via the API.
     -  Because it creates native events, your calendar updates as frequently as you schedule the script to run.
