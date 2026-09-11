@@ -271,6 +271,7 @@
           return response.text();
         })
         .then(markdown => {
+          marked.setOptions({ gfm: true, breaks: true });
           document.getElementById('readme-content').innerHTML = marked.parse(markdown);
         })
         .catch(err => {
@@ -295,7 +296,7 @@
           list: 'Lista'
         },
         events: {
-          url: './bsgc_calendar.ics',
+          url: fullIcsUrl,
           format: 'ics'
         },
         eventClick: function(info) {
