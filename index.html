@@ -158,13 +158,13 @@
 
   <div class="container">
     <header>
-      <h1>📅 BSGC Calendario Escolar</h1>
+      <h1>BSGC Calendario Escolar</h1>
       <div class="btn-group">
         <a id="gcal-btn" href="#" target="_blank" class="btn gcal-btn">
-          ➕ Google Calendar
+          ➕ Add to Google Calendar
         </a>
         <a id="apple-btn" href="#" class="btn apple-btn">
-          🍏 Apple / iOS
+          🍏 Add to Apple / iOS
         </a>
         <a id="sub-link" href="#" class="btn ics-btn">
           📲 Descargar .ics
@@ -184,7 +184,8 @@
       document.getElementById('sub-link').href = icsUrl;
 
       // Set Google Calendar direct subscribe link
-      const googleCalUrl = `https://calendar.google.com/calendar/r/subscribe?cid=${encodeURIComponent(icsUrl)}`;
+      const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
+      const googleCalUrl = `https://calendar.google.com/calendar/r/subscribe?cid=${encodeURIComponent(webcalUrl)}`;
       document.getElementById('gcal-btn').href = googleCalUrl;
 
       // Set Apple / iOS Webcal link (replaces http/https with webcal)
