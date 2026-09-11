@@ -180,16 +180,17 @@
       // Get absolute HTTPS URL of the .ics file
       const icsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
 
+      // Get WEBCAL URL of the .ics file
+      const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
       // Set standard .ics download link
       document.getElementById('sub-link').href = icsUrl;
 
       // Set Google Calendar direct subscribe link
-      const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
       const googleCalUrl = `https://calendar.google.com/calendar/r/subscribe?cid=${encodeURIComponent(webcalUrl)}`;
       document.getElementById('gcal-btn').href = googleCalUrl;
 
       // Set Apple / iOS Webcal link (replaces http/https with webcal)
-      const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
+      //const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
       document.getElementById('apple-btn').href = webcalUrl;
 
       // Detect mobile screen width
