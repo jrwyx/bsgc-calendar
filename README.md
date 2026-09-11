@@ -13,7 +13,7 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
 ✨ <ins>**FEATURES**</ins>
 
 - **Emoji Categorization:** Prefixes event summaries with intuitive emojis based on event types.
-   - 🌴Holidays - Festivos
+   - 🌴 Holidays - Festivos
    - 📌 Important Dates - Fechas Destacadas
    - 📝 Exams - Exámenes
    - 👥 Meetings - Reuniones
