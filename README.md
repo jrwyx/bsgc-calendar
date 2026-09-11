@@ -12,7 +12,15 @@ It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via Gi
 
 ✨ <ins>**FEATURES**</ins>
 
-- **Emoji Categorization:** Prefixes event summaries with intuitive emojis based on event types (e.g., 🌴 Festivos, 📝 Exámenes, 🚌 Excursiones).
+- **Emoji Categorization:** Prefixes event summaries with intuitive emojis based on event types.
+   - 🌴Holidays - Festivos
+   - 📌 Important Dates - Fechas Destacadas
+   - 📝 Exams - Exámenes
+   - 👥 Meetings - Reuniones
+   - 🎉 School Events - Eventos Escolares
+   - 🚌 Field Trips - Excursiones
+   - ⚽ Sports - Deportes
+   - 📅 Default
 - **Time Transparency:** Configured with `TRANSP:TRANSPARENT` so all-day events do not block off user availability as "Busy".
 - **RFC 5545 Compliant:**
   - Correct plural `CATEGORIES` property handling.
