@@ -282,18 +282,18 @@
       const isMobile = window.innerWidth < 768;
       const calendarEl = document.getElementById('calendar');
       const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: isMobile ? 'listMonth' : 'dayGridMonth',
+        initialView: 'dayGridMonth',
         locale: 'es',
         firstDay: 1,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: isMobile ? 'listMonth,dayGridMonth' : 'dayGridMonth,listMonth'
+          right: isMobile ? 'dayGridMonth,listMonth' : 'dayGridMonth,listMonth'
         },
         buttonText: {
-          today: 'Hoy',
-          month: 'Mes',
-          list: 'Lista'
+          today: 'Today',
+          month: 'Month',
+          list: 'List'
         },
         events: {
           url: fullIcsUrl,
