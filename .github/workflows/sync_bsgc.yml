@@ -41,4 +41,4 @@ jobs:
           publish_branch: gh-pages
           keep_files: false
           # Exclude non-web repository files from the gh-pages branch
-          exclude_assets: '.github,*.py,requirements.txt,README.md'
+          exclude_assets: '.github,*.py,requirements.txt'
