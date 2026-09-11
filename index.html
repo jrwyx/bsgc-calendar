@@ -13,7 +13,8 @@
   <style>
     :root {
       --primary-color: #0d3b66;
-      --accent-color: #4285f4;
+      --accent-gcal: #4285f4;
+      --accent-apple: #000000;
       --bg-color: #f8f9fa;
     }
 
@@ -64,10 +65,10 @@
 
     .btn {
       text-decoration: none;
-      padding: 12px 16px;
+      padding: 12px 14px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-align: center;
       transition: opacity 0.2s ease;
       width: 100%;
@@ -79,7 +80,12 @@
     }
 
     .gcal-btn {
-      background-color: var(--accent-color);
+      background-color: var(--accent-gcal);
+      color: white;
+    }
+
+    .apple-btn {
+      background-color: var(--accent-apple);
       color: white;
     }
 
@@ -152,13 +158,16 @@
 
   <div class="container">
     <header>
-      <h1>BSGC Calendario Escolar</h1>
+      <h1>📅 BSGC Calendario Escolar</h1>
       <div class="btn-group">
         <a id="gcal-btn" href="#" target="_blank" class="btn gcal-btn">
-          ➕ Añadir a Google Calendar
+          ➕ Google Calendar
+        </a>
+        <a id="apple-btn" href="#" class="btn apple-btn">
+          🍏 Apple / iOS
         </a>
         <a id="sub-link" href="#" class="btn ics-btn">
-          📲 Descargar Feed .ics
+          📲 Descargar .ics
         </a>
       </div>
     </header>
@@ -168,19 +177,25 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Get absolute HTTPS URL of the .ics file
       const icsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
 
+      // Set standard .ics download link
       document.getElementById('sub-link').href = icsUrl;
 
+      // Set Google Calendar direct subscribe link
       const googleCalUrl = `https://calendar.google.com/calendar/r/subscribe?cid=${encodeURIComponent(icsUrl)}`;
       document.getElementById('gcal-btn').href = googleCalUrl;
+
+      // Set Apple / iOS Webcal link (replaces http/https with webcal)
+      const webcalUrl = icsUrl.replace(/^https?:\/\//, 'webcal://');
+      document.getElementById('apple-btn').href = webcalUrl;
 
       // Detect mobile screen width
       const isMobile = window.innerWidth < 768;
 
       const calendarEl = document.getElementById('calendar');
       const calendar = new FullCalendar.Calendar(calendarEl, {
-        // Default to List view on mobile for better touch readability
         initialView: isMobile ? 'listMonth' : 'dayGridMonth',
         locale: 'es',
         firstDay: 1,
