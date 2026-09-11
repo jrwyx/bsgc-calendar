@@ -264,19 +264,20 @@
       const isAndroid = /Android/i.test(navigator.userAgent);
       const gcalBtn = document.getElementById('gcal-btn');
 
-      // Standard render link using HTTP URL
-      const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
+      // Target web URL with explicit user route & webcal CID
+      const targetUrl = `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(webcalUrl)}`;
+      
+      // Google redirector link to prevent Android OS app intent matching
+      const androidBypassUrl = `https://www.google.com/url?q=${encodeURIComponent(targetUrl)}`;
 
-      gcalBtn.href = googleCalUrl;
+      gcalBtn.href = isAndroid ? androidBypassUrl : targetUrl;
       gcalBtn.target = "_blank";
       gcalBtn.rel = "noopener noreferrer";
 
-      // Force Android browsers to open in a new browser tab instead of handoff to the native app
       if (isAndroid) {
         gcalBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          // Opening via window.open using the full web URL bypasses the native intent picker on Chrome Android
-          window.open(googleCalUrl, '_blank', 'noopener,noreferrer');
+          window.open(androidBypassUrl, '_blank', 'noopener,noreferrer');
         });
       }
       
