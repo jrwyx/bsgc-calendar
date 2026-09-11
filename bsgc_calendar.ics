@@ -8,7 +8,7 @@ SUMMARY:👥 Tafira and South. R-Y2 Meet the teacher Meeting / Tafira y So
  uth. R-Y2 Reunión para conocer al profesorado.
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1017@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -26,7 +26,7 @@ SUMMARY:📌 Parent Portal Opens for Enrichment Activities Sep-Dec / Porta
  l de Padres abierto para las actividades extraescolares Sep-Dec
 DTSTART;VALUE=DATE:20260901
 DTEND;VALUE=DATE:20260902
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1018@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -44,7 +44,7 @@ SUMMARY:👥 Tafira & South. Y3-Y6. Meet the teacher meeting. / Tafira & S
  outh. Y3-Y6. Reunión para conocer al profesorado
 DTSTART;VALUE=DATE:20260902
 DTEND;VALUE=DATE:20260903
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1019@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -61,7 +61,7 @@ BEGIN:VEVENT
 SUMMARY:📌 Tafira School Photos / Tafira Fotos Escolares
 DTSTART;VALUE=DATE:20260902
 DTEND;VALUE=DATE:20260904
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1021@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -77,7 +77,7 @@ SUMMARY:📌 Parent Portal Closes for Enrichment Activities Sep-Dec / Port
  al de Padres cerrado para las actividades extraescolares Sep-Dec
 DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1020@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -94,7 +94,7 @@ BEGIN:VEVENT
 SUMMARY:📌 South School Photos / South Fotos Escolares
 DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1022@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -110,7 +110,7 @@ SUMMARY:📌 Enrichment Activities Begins / Comienzan las actividades extr
  aescolares.
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260908
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1023@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -127,7 +127,7 @@ SUMMARY:🌴 Public Holidays. Nuestra Señora del Pino / Festivo. Nuestra
  Señora del Pino
 DTSTART;VALUE=DATE:20260908
 DTEND;VALUE=DATE:20260909
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1024@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -142,7 +142,7 @@ BEGIN:VEVENT
 SUMMARY:📝 Y12/Y10 CAT4 test / Y12/Y10 examen CAT4
 DTSTART;VALUE=DATE:20260909
 DTEND;VALUE=DATE:20260910
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1025@bs-gc.com
 CATEGORIES:Exams - Exámenes
 DESCRIPTION:Category: Exams - Exámenes\n\nhttps://bs-gc.com/en/school-lif
@@ -157,7 +157,7 @@ BEGIN:VEVENT
 SUMMARY:📝 Y7 CAT4 test / Y7 examen CAT4
 DTSTART;VALUE=DATE:20260916
 DTEND;VALUE=DATE:20260917
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1026@bs-gc.com
 CATEGORIES:Exams - Exámenes
 DESCRIPTION:Category: Exams - Exámenes\n\nhttps://bs-gc.com/en/school-lif
@@ -172,7 +172,7 @@ BEGIN:VEVENT
 SUMMARY:📌 Parents Drop In with Ms. Eggar
 DTSTART;VALUE=DATE:20260918
 DTEND;VALUE=DATE:20260919
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1027@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -188,7 +188,7 @@ SUMMARY:👥 KS5 Parent info meeting: sixth form and uni applications / KS
  5 Reunión informativa de Padres: sixth form y universidad
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1028@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -205,7 +205,7 @@ BEGIN:VEVENT
 SUMMARY:👥 South Open Door Meeting / South. Reunión de Puertas Abiertas
 DTSTART;VALUE=DATE:20261002
 DTEND;VALUE=DATE:20261003
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1043@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -221,7 +221,7 @@ SUMMARY:👥 Open Door Meeting Secondary / Reunión de puertas abiertas de
   secundaria
 DTSTART;VALUE=DATE:20261006
 DTEND;VALUE=DATE:20261007
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1042@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -237,7 +237,7 @@ SUMMARY:👥 Open Door Meeting Primary / Reunión de puertas abiertas de p
  rimaria
 DTSTART;VALUE=DATE:20261008
 DTEND;VALUE=DATE:20261009
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1044@bs-gc.com
 CATEGORIES:Meetings - Reuniones
 DESCRIPTION:Category: Meetings - Reuniones\n\nhttps://bs-gc.com/en/school-
@@ -253,7 +253,7 @@ SUMMARY:🌴 Public Holiday: Día de la Hispanidad / Festivo: Día de la H
  ispanidad
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1029@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -269,7 +269,7 @@ SUMMARY:🚌 Tafira & South Year 6 Sailing Trip - Puerto Rico Tafira & Sou
  th Year 6 Estancia de vela - Puerto Rico
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261030
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1041@bs-gc.com
 CATEGORIES:Field Trips - Excursiones
 DESCRIPTION:Category: Field Trips - Excursiones\n\nhttps://bs-gc.com/en/sc
@@ -286,7 +286,7 @@ BEGIN:VEVENT
 SUMMARY:📌 INSET. No school. / INSET. No hay colegio
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1030@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -301,7 +301,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 School Holidays / Vacaciones Escolares
 DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261109
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1031@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -316,7 +316,7 @@ BEGIN:VEVENT
 SUMMARY:📝 Y11 Mock Exams
 DTSTART;VALUE=DATE:20261116
 DTEND;VALUE=DATE:20261121
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1039@bs-gc.com
 CATEGORIES:Exams - Exámenes
 DESCRIPTION:Category: Exams - Exámenes\n\nhttps://bs-gc.com/en/school-lif
@@ -331,7 +331,7 @@ BEGIN:VEVENT
 SUMMARY:📝 Y8\, Y9\, Y10 Exams / Y8\, Y9\, Y10 Exámenes
 DTSTART;VALUE=DATE:20261118
 DTEND;VALUE=DATE:20261121
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1040@bs-gc.com
 CATEGORIES:Exams - Exámenes
 DESCRIPTION:Category: Exams - Exámenes\n\nhttps://bs-gc.com/en/school-lif
@@ -346,7 +346,7 @@ BEGIN:VEVENT
 SUMMARY:🚌 A level Science Trip to Geneva
 DTSTART;VALUE=DATE:20261201
 DTEND;VALUE=DATE:20261207
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-963@bs-gc.com
 CATEGORIES:Field Trips - Excursiones
 DESCRIPTION:Category: Field Trips - Excursiones\n\nhttps://bs-gc.com/en/sc
@@ -361,7 +361,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 School Holidays / Vacaciones Escolares
 DTSTART;VALUE=DATE:20261207
 DTEND;VALUE=DATE:20261208
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1032@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -376,7 +376,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 Public Holiday / Festivo
 DTSTART;VALUE=DATE:20261208
 DTEND;VALUE=DATE:20261209
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1033@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -393,7 +393,7 @@ SUMMARY:📌 Parents’ Portal opens for After School Activities Jan – M
   enero – marzo 2027 (4pm)
 DTSTART;VALUE=DATE:20261210
 DTEND;VALUE=DATE:20261211
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1045@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -413,7 +413,7 @@ SUMMARY:📌 Parents’ Portal closes for After School Activities Jan –
   enero – marzo 2027 (4pm)
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1046@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -432,7 +432,7 @@ SUMMARY:📌 Last Day of Enrichment Activities / Último día de actividad
  es extraescolares
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1047@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -448,7 +448,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 School Holidays /Vacaciones Escolares
 DTSTART;VALUE=DATE:20261223
 DTEND;VALUE=DATE:20270111
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1034@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -463,7 +463,7 @@ BEGIN:VEVENT
 SUMMARY:🚌 Y10. Disney Trip / Y10. Viaje a Disney
 DTSTART;VALUE=DATE:20270130
 DTEND;VALUE=DATE:20270203
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-969@bs-gc.com
 CATEGORIES:Field Trips - Excursiones
 DESCRIPTION:Category: Field Trips - Excursiones\n\nhttps://bs-gc.com/en/sc
@@ -478,7 +478,7 @@ BEGIN:VEVENT
 SUMMARY:📌 INSET no school / INSET no hay colegio
 DTSTART;VALUE=DATE:20270205
 DTEND;VALUE=DATE:20270206
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1035@bs-gc.com
 CATEGORIES:Important Dates - Fechas Destacadas
 DESCRIPTION:Category: Important Dates - Fechas Destacadas\n\nhttps://bs-gc
@@ -493,7 +493,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 School Holidays / Vacaciones Escolares
 DTSTART;VALUE=DATE:20270208
 DTEND;VALUE=DATE:20270210
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1036@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -508,7 +508,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 School Holidays / Vacaciones Escolares
 DTSTART;VALUE=DATE:20270322
 DTEND;VALUE=DATE:20270403
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1037@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
@@ -523,7 +523,7 @@ BEGIN:VEVENT
 SUMMARY:🌴 Public Holiday / Festivo
 DTSTART;VALUE=DATE:20270624
 DTEND;VALUE=DATE:20270625
-DTSTAMP:20260911T221816Z
+DTSTAMP:20260911T223432Z
 UID:bsgc-1038@bs-gc.com
 CATEGORIES:Holidays - Festivos
 DESCRIPTION:Category: Holidays - Festivos\n\nhttps://bs-gc.com/en/school-l
