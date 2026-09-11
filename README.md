@@ -31,9 +31,9 @@ The workflow (.github/workflows/update_calendar.yml) executes automatically:
 - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
 
 
-🔗 <ins>**HOW TO SUBSCRIBE**</ins>
+🔗 <ins>**HOW TO SUBSCRIBE MANUALLY**</ins>
 
-To add this calendar to your calendar app:
+To manually add this calendar to your calendar app:
 
 **1. Apple Calendar / iOS 18+:**
 
@@ -66,9 +66,9 @@ The  Google Calendar app for Android does not natively support directly subscrib
 - The events will then populate on your phone.
 
 Note on Google Calendar Sync:
-- Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours :cry:
+- Google Calendar caches external .ics feeds aggressively and refreshes them every 12–24 hours 😭
 
-:wrench: <ins>**Workarounds for Faster Google Calendar Updates**</ins>
+🔧 <ins>**Workarounds for Faster Google Calendar Updates**</ins>
 - Use an alternative calendar app:
     - Switch to apps like Apple Calendar or Microsoft Outlook, which support much more frequent or user-adjustable refresh intervals (ranging from 5 minutes to a few hours) for subscribed feeds.
 - Using the open-sorce tool GAS-ICS-Sync on GitHub is the best programmatic way to bypass Google’s 12–24 hour caching rule.
