@@ -23,13 +23,13 @@
       <h1>BSGC School Calendar</h1>
       <div class="btn-group">
         <a id="gcal-btn" href="#" target="_blank" class="btn gcal-btn">
-          ➕ Add to Google Calendar (Android)
+          ➕ Add to Google Calendar
         </a>
         <a id="apple-btn" href="#" class="btn apple-btn">
-          🍏 Add to Apple Calendar (iPhone)
+          🍏 Add to Apple Calendar
         </a>
         <a id="sub-link" href="#" class="btn ics-btn">
-          📲 Download .ics
+          📲 Download .ics File
         </a>
       </div>
     </header>
@@ -93,12 +93,12 @@
       const isMobile = window.innerWidth < 768;
       const calendarEl = document.getElementById('calendar');
 
-      // Detect user's preferred browser language (e.g., 'it', 'es', 'en')
+      // Detect user's preferred browser language
       const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
 
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        locale: userLang, // Automatically switch locale based on browser setting
+        locale: userLang,
         firstDay: 1,
         headerToolbar: {
           left: 'prev,next today',
