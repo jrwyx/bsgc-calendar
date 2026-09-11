@@ -18,7 +18,7 @@ jobs:
           # Generates a random number of seconds between 0 and 3600 (0 to 60 minutes)
           DELAY=$((RANDOM % 3600))
           echo "Delaying execution by $DELAY seconds ($(($DELAY / 60)) minutes)..."
-          sleep $DELAY
+          #sleep $DELAY
 
       - name: Set up Python
         uses: actions/setup-python@v4
