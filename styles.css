@@ -4,10 +4,6 @@
   
   --primary-color: #0d3b66;
   --primary-hover: #082643;
-  --accent-gcal: #1a73e8;
-  --accent-gcal-hover: #1557b0;
-  --accent-apple: #111111;
-  --accent-apple-hover: #000000;
 
   --bg-color: #f8fafc;
   --card-bg: #ffffff;
@@ -91,6 +87,8 @@ body {
   width: 100%;
   user-select: none;
   border: 1px solid transparent;
+  background-color: var(--primary-color);
+  color: #ffffff;
 }
 
 .btn-icon {
@@ -100,37 +98,13 @@ body {
 }
 
 .btn:hover {
+  background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 16px rgba(13, 59, 102, 0.25);
 }
 
 .btn:active {
   transform: translateY(0);
-}
-
-/* Button Colors */
-.btn-gcal {
-  background-color: var(--accent-gcal);
-  color: #ffffff;
-}
-.btn-gcal:hover {
-  background-color: var(--accent-gcal-hover);
-}
-
-.btn-apple {
-  background-color: var(--accent-apple);
-  color: #ffffff;
-}
-.btn-apple:hover {
-  background-color: var(--accent-apple-hover);
-}
-
-.btn-ics {
-  background-color: var(--primary-color);
-  color: #ffffff;
-}
-.btn-ics:hover {
-  background-color: var(--primary-hover);
 }
 
 /* --- Calendar Section --- */
@@ -239,7 +213,7 @@ body {
 }
 
 .readme-section a {
-  color: var(--accent-gcal);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
