@@ -146,7 +146,7 @@ def generate_full_ics(start_year=2026):
     cal = Calendar()
     cal.add('prodid', '-//British School of Gran Canaria//School Calendar//ES')
     cal.add('version', '2.0')
-    cal.add('x-wr-calname', 'BSGC - Calendario Escolar')
+    cal.add('x-wr-calname', 'BSGC - School Calendar')
     cal.add('x-wr-timezone', 'Atlantic/Canary')
 
     # Define academic boundaries at the very beginning of the function
