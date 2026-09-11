@@ -5,7 +5,7 @@ An automated Python scraper that extracts school events from the British School 
 It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
 
 The repository can be found here:
-- [https://github.com/jrwyx/bsgc-calendar] (https://github.com/jrwyx/bsgc-calendar)
+- [https://github.com/jrwyx/bsgc-calendar](https://github.com/jrwyx/bsgc-calendar)
 
 <ins>**DISCLAIMER**</ins>
 - No Guarantee of Stability: This project is experimental and APIs are not considered stable.
