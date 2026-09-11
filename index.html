@@ -265,7 +265,7 @@
       const gcalBtn = document.getElementById('gcal-btn');
 
       // Standard render link using HTTP URL
-      const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(fullIcsUrl)}`;
+      const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
 
       gcalBtn.href = googleCalUrl;
       gcalBtn.target = "_blank";
