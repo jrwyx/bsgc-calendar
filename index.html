@@ -295,23 +295,24 @@
           console.error('Failed to load README.md:', err);
         });
 
+      // 6. FullCalendar 
       // 6. FullCalendar Setup
       const isMobile = window.innerWidth < 768;
       const calendarEl = document.getElementById('calendar');
+
+      // Detect user's preferred browser language (e.g., 'it', 'es', 'en')
+      const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
+
       const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        locale: 'es',
+        locale: userLang, // Automatically switch locale based on browser setting
         firstDay: 1,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: isMobile ? 'dayGridMonth,listMonth' : 'dayGridMonth,listMonth'
         },
-        buttonText: {
-          today: 'Today',
-          month: 'Month',
-          list: 'List'
-        },
+        // Removed hardcoded buttonText so FullCalendar uses built-in translations for 'Today', 'Month', and 'List'
         events: {
           url: fullIcsUrl,
           format: 'ics'
@@ -325,6 +326,7 @@
       });
 
       calendar.render();
+         
     });
   </script>
 
