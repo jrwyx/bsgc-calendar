@@ -10,6 +10,9 @@
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.10/index.global.min.js"></script>
 
+  <!-- Marked.js for dynamic Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     :root {
       --primary-color: #0d3b66;
@@ -28,6 +31,7 @@
       padding: 12px;
       background-color: var(--bg-color);
       color: #333;
+      line-height: 1.5;
     }
 
     .container {
@@ -96,6 +100,7 @@
 
     #calendar {
       margin-top: 10px;
+      margin-bottom: 40px;
     }
 
     /* FullCalendar Responsive Tweaks */
@@ -117,6 +122,69 @@
       cursor: pointer;
       border-radius: 4px;
       padding: 4px;
+    }
+
+    /* Readme Footer Styles */
+    .readme-section {
+      border-top: 2px solid #eee;
+      padding-top: 25px;
+      margin-top: 30px;
+      color: #24292e;
+    }
+
+    .readme-section h1, .readme-section h2 {
+      color: var(--primary-color);
+      font-size: 1.25rem;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eaecef;
+      padding-bottom: 6px;
+    }
+
+    .readme-section h3 {
+      font-size: 1.05rem;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .readme-section ul, .readme-section ol {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .readme-section li {
+      margin-bottom: 6px;
+    }
+
+    .readme-section code, .readme-section pre {
+      background-color: #f6f8fa;
+      border-radius: 6px;
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .readme-section code {
+      padding: 0.2em 0.4em;
+      font-size: 85%;
+    }
+
+    .readme-section pre {
+      padding: 12px;
+      overflow-x: auto;
+      font-size: 85%;
+      line-height: 1.45;
+    }
+
+    .readme-section ins {
+      text-decoration: underline;
+    }
+
+    .readme-section a {
+      color: #0969da;
+      text-decoration: none;
+    }
+
+    .readme-section a:hover {
+      text-decoration: underline;
     }
 
     /* Desktop Adjustments (768px and up) */
@@ -173,59 +241,74 @@
     </header>
 
     <div id="calendar"></div>
+
+    <!-- Container where README.md content will automatically load -->
+    <section id="readme-content" class="readme-section"></section>
   </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Get full absolute URL of the .ics file
-    const fullIcsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Get full absolute URL of the .ics file
+      const fullIcsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
 
-    // 2. Direct .ics download link
-    document.getElementById('sub-link').href = fullIcsUrl;
+      // 2. Direct .ics download link
+      document.getElementById('sub-link').href = fullIcsUrl;
 
-    // 3. Webcal protocol link for Apple / iOS & Google Calendar
-    const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
-    
-    // Apple / iOS button
-    document.getElementById('apple-btn').href = webcalUrl;
+      // 3. Webcal protocol link for Apple / iOS & Google Calendar
+      const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
+      
+      // Apple / iOS button
+      document.getElementById('apple-btn').href = webcalUrl;
 
-    // 4. Google Calendar link (Uses /calendar/render + webcal:// to avoid infinite loading)
-    const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
-    document.getElementById('gcal-btn').href = googleCalUrl;
+      // 4. Google Calendar link
+      const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
+      document.getElementById('gcal-btn').href = googleCalUrl;
 
-    // Detect mobile screen width
-    const isMobile = window.innerWidth < 768;
+      // 5. Fetch and render README.md dynamically
+      fetch('./README.md')
+        .then(response => {
+          if (!response.ok) throw new Error('README.md file not found');
+          return response.text();
+        })
+        .then(markdown => {
+          document.getElementById('readme-content').innerHTML = marked.parse(markdown);
+        })
+        .catch(err => {
+          console.error('Failed to load README.md:', err);
+        });
 
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: isMobile ? 'listMonth' : 'dayGridMonth',
-      locale: 'es',
-      firstDay: 1,
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: isMobile ? 'listMonth,dayGridMonth' : 'dayGridMonth,listMonth'
-      },
-      buttonText: {
-        today: 'Hoy',
-        month: 'Mes',
-        list: 'Lista'
-      },
-      events: {
-        url: './bsgc_calendar.ics',
-        format: 'ics'
-      },
-      eventClick: function(info) {
-        if (info.event.url) {
-          info.jsEvent.preventDefault();
-          window.open(info.event.url, "_blank");
+      // 6. FullCalendar Setup
+      const isMobile = window.innerWidth < 768;
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: isMobile ? 'listMonth' : 'dayGridMonth',
+        locale: 'es',
+        firstDay: 1,
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: isMobile ? 'listMonth,dayGridMonth' : 'dayGridMonth,listMonth'
+        },
+        buttonText: {
+          today: 'Hoy',
+          month: 'Mes',
+          list: 'Lista'
+        },
+        events: {
+          url: './bsgc_calendar.ics',
+          format: 'ics'
+        },
+        eventClick: function(info) {
+          if (info.event.url) {
+            info.jsEvent.preventDefault();
+            window.open(info.event.url, "_blank");
+          }
         }
-      }
-    });
+      });
 
-    calendar.render();
-  });
-</script>
+      calendar.render();
+    });
+  </script>
 
 </body>
 </html>
