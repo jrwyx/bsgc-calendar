@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p public
           cp index.html public/
+          cp styles.css public/
           cp README.md public/
           cp bsgc_calendar.ics public/
 
