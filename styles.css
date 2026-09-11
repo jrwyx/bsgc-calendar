@@ -1,8 +1,24 @@
 :root {
+  /* Modern Neutral & Brand Colors */
   --primary-color: #0d3b66;
+  --primary-hover: #082643;
   --accent-gcal: #4285f4;
-  --accent-apple: #000000;
-  --bg-color: #f8f9fa;
+  --accent-gcal-hover: #2b6cb0;
+  --accent-apple: #1c1c1e;
+  --accent-apple-hover: #000000;
+  
+  --bg-color: #f3f4f6;
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #4b5563;
+  --border-color: #e5e7eb;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 8px 15px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -12,137 +28,202 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 12px;
+  padding: 16px;
   background-color: var(--bg-color);
-  color: #333;
-  line-height: 1.5;
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 960px;
   margin: 0 auto;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
 }
 
+/* --- Header Section --- */
 header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #eee;
-  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 20px;
 }
 
 h1 {
   margin: 0;
   color: var(--primary-color);
-  font-size: 1.6rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   text-align: center;
+  letter-spacing: -0.02em;
   width: 100%;
 }
 
+/* --- Unified Button Component System --- */
 .btn-group {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 8px;
+  gap: 12px;
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-decoration: none;
-  padding: 12px 14px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.925rem;
   text-align: center;
-  transition: opacity 0.2s ease;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--transition);
   width: 100%;
-  display: inline-block;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .btn:active {
-  opacity: 0.8;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Button Variants */
 .gcal-btn {
   background-color: var(--accent-gcal);
-  color: white;
+  color: #ffffff;
+}
+.gcal-btn:hover {
+  background-color: var(--accent-gcal-hover);
 }
 
 .apple-btn {
   background-color: var(--accent-apple);
-  color: white;
+  color: #ffffff;
+}
+.apple-btn:hover {
+  background-color: var(--accent-apple-hover);
 }
 
 .ics-btn {
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
+}
+.ics-btn:hover {
+  background-color: var(--primary-hover);
 }
 
+/* --- Calendar Container --- */
 #calendar {
   margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-/* FullCalendar Responsive Tweaks */
+/* FullCalendar Modern Overrides */
 .fc {
   font-size: 0.9rem;
 }
 
 .fc-toolbar {
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .fc-toolbar-title {
-  font-size: 1.2rem !important;
+  font-size: 1.25rem !important;
+  font-weight: 600;
+  color: var(--primary-color);
   text-transform: capitalize;
 }
 
+.fc-button-primary {
+  background-color: #ffffff !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition) !important;
+  border-radius: 6px !important;
+}
+
+.fc-button-primary:hover {
+  background-color: #f9fafb !important;
+  border-color: #d1d5db !important;
+  color: var(--primary-color) !important;
+}
+
+.fc-button-active {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: #ffffff !important;
+}
+
 .fc-event {
-  cursor: pointer;
   border-radius: 4px;
-  padding: 4px;
+  padding: 3px 6px;
+  border: none !important;
+  background-color: var(--primary-color) !important;
+  transition: opacity 0.15s ease;
 }
 
-/* Readme Footer Styles */
+.fc-event:hover {
+  opacity: 0.88;
+}
+
+/* --- Readme Section --- */
 .readme-section {
-  border-top: 2px solid #eee;
-  padding-top: 25px;
-  margin-top: 30px;
-  color: #24292e;
+  border-top: 1px solid var(--border-color);
+  padding-top: 28px;
+  margin-top: 36px;
+  color: var(--text-main);
 }
 
-.readme-section h1, .readme-section h2 {
+.readme-section h1, 
+.readme-section h2 {
   color: var(--primary-color);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-top: 24px;
   margin-bottom: 12px;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 6px;
 }
 
 .readme-section h3 {
-  font-size: 1.05rem;
-  margin-top: 16px;
+  font-size: 1.1rem;
+  margin-top: 18px;
   margin-bottom: 8px;
 }
 
-.readme-section ul, .readme-section ol {
+.readme-section ul, 
+.readme-section ol {
   padding-left: 20px;
   margin-bottom: 16px;
+  color: var(--text-muted);
 }
 
 .readme-section li {
   margin-bottom: 6px;
 }
 
-.readme-section code, .readme-section pre {
-  background-color: #f6f8fa;
+.readme-section code, 
+.readme-section pre {
+  background-color: #f3f4f6;
   border-radius: 6px;
   font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
 }
@@ -150,21 +231,19 @@ h1 {
 .readme-section code {
   padding: 0.2em 0.4em;
   font-size: 85%;
+  color: #c81e1e;
 }
 
 .readme-section pre {
-  padding: 12px;
+  padding: 14px;
   overflow-x: auto;
   font-size: 85%;
-  line-height: 1.45;
-}
-
-.readme-section ins {
-  text-decoration: underline;
+  line-height: 1.5;
+  border: 1px solid var(--border-color);
 }
 
 .readme-section a {
-  color: #0969da;
+  color: var(--accent-gcal);
   text-decoration: none;
 }
 
@@ -172,28 +251,25 @@ h1 {
   text-decoration: underline;
 }
 
-/* Desktop Adjustments (768px and up) */
+/* --- Desktop Layout Enhancements (768px+) --- */
 @media (min-width: 768px) {
   body {
-    padding: 20px;
+    padding: 32px;
   }
 
   .container {
-    padding: 25px;
-  }
-
-  header {
-    flex-direction: column;
-    justify-content: center;
+    padding: 32px;
   }
 
   .btn-group {
     flex-direction: row;
+    justify-content: center;
     width: auto;
   }
 
   .btn {
     width: auto;
+    min-width: 220px; /* Gives buttons uniform width on wide screens */
   }
 
   .fc-toolbar {
