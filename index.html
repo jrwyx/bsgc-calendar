@@ -175,56 +175,57 @@
     <div id="calendar"></div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. Get full absolute URL of the .ics file
-      const fullIcsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Get full absolute URL of the .ics file
+    const fullIcsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
 
-      // 2. Direct .ics download link
-      document.getElementById('sub-link').href = fullIcsUrl;
+    // 2. Direct .ics download link
+    document.getElementById('sub-link').href = fullIcsUrl;
 
-      // 3. Apple / iOS Webcal link (replaces http/https with webcal://)
-      const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
-      document.getElementById('apple-btn').href = webcalUrl;
+    // 3. Webcal protocol link for Apple / iOS & Google Calendar
+    const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
+    
+    // Apple / iOS button
+    document.getElementById('apple-btn').href = webcalUrl;
 
-      // 4. Google Calendar link (strips http/https to prevent endless loading hangs)
-      const cleanUrlForGoogle = fullIcsUrl.replace(/^https?:\/\//, '');
-      const googleCalUrl = `https://calendar.google.com/calendar/r/subscribe?cid=${encodeURIComponent(cleanUrlForGoogle)}`;
-      document.getElementById('gcal-btn').href = googleCalUrl;
+    // 4. Google Calendar link (Uses /calendar/render + webcal:// to avoid infinite loading)
+    const googleCalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
+    document.getElementById('gcal-btn').href = googleCalUrl;
 
-      // Detect mobile screen width
-      const isMobile = window.innerWidth < 768;
+    // Detect mobile screen width
+    const isMobile = window.innerWidth < 768;
 
-      const calendarEl = document.getElementById('calendar');
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: isMobile ? 'listMonth' : 'dayGridMonth',
-        locale: 'es',
-        firstDay: 1,
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: isMobile ? 'listMonth,dayGridMonth' : 'dayGridMonth,listMonth'
-        },
-        buttonText: {
-          today: 'Hoy',
-          month: 'Mes',
-          list: 'Lista'
-        },
-        events: {
-          url: './bsgc_calendar.ics',
-          format: 'ics'
-        },
-        eventClick: function(info) {
-          if (info.event.url) {
-            info.jsEvent.preventDefault();
-            window.open(info.event.url, "_blank");
-          }
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: isMobile ? 'listMonth' : 'dayGridMonth',
+      locale: 'es',
+      firstDay: 1,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: isMobile ? 'listMonth,dayGridMonth' : 'dayGridMonth,listMonth'
+      },
+      buttonText: {
+        today: 'Hoy',
+        month: 'Mes',
+        list: 'Lista'
+      },
+      events: {
+        url: './bsgc_calendar.ics',
+        format: 'ics'
+      },
+      eventClick: function(info) {
+        if (info.event.url) {
+          info.jsEvent.preventDefault();
+          window.open(info.event.url, "_blank");
         }
-      });
-
-      calendar.render();
+      }
     });
-  </script>
+
+    calendar.render();
+  });
+</script>
 
 </body>
 </html>
