@@ -13,10 +13,13 @@
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- FullCalendar & ICAL.js Dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+  <!-- ICAL.js parser dependency (Must load BEFORE FullCalendar iCal plugin) -->
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+
+  <!-- FullCalendar & iCalendar Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.10/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/locales-all.global.min.js"></script>
 
   <!-- Marked.js for dynamic Markdown rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -63,8 +66,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Get exact URL of the bsgc_calendar.ics file relative to the current folder
-      const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+      // 1. Cleanly resolve directory path excluding query strings / anchors
+      const origin = window.location.origin;
+      const pathname = window.location.pathname;
+      const basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+      const baseUrl = origin + basePath;
       const fullIcsUrl = baseUrl + 'bsgc_calendar.ics';
 
       // 2. Direct .ics download link
@@ -77,7 +83,7 @@
       // Apple / iOS button
       document.getElementById('apple-btn').href = webcalUrl;
 
-      // 4. Google Calendar link handling (fixed Desktop + Android)
+      // 4. Google Calendar link handling
       const isAndroid = /Android/i.test(navigator.userAgent);
       const gcalBtn = document.getElementById('gcal-btn');
 
@@ -101,7 +107,8 @@
         })
         .then(markdown => {
           marked.setOptions({ gfm: true, breaks: true });
-          return Promise.resolve(marked.parse(markdown));
+          const parsed = marked.parse(markdown);
+          return parsed instanceof Promise ? parsed : Promise.resolve(parsed);
         })
         .then(html => {
           document.getElementById('readme-content').innerHTML = html;
@@ -114,11 +121,7 @@
       const calendarEl = document.getElementById('calendar');
       const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
 
-      // Retrieve plugin reference safely from FullCalendar global scope
-      const icalPlugin = FullCalendar.ICalendar || window.FullCalendarICalendar;
-
       const calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: icalPlugin ? [ icalPlugin ] : [],
         initialView: 'dayGridMonth',
         locale: userLang,
         firstDay: 1,
