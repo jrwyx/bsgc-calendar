@@ -28,7 +28,7 @@
 
   <main class="container">
     <header class="site-header">
-      <h1 class="site-title">BSGC School Calendar00</h1>
+      <h1 class="site-title">BSGC School Calendar</h1>
       <div class="btn-group">
         <!-- Google Calendar Button -->
         <a id="gcal-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn">
@@ -83,18 +83,18 @@
       // Apple / iOS button
       document.getElementById('apple-btn').href = webcalUrl;
 
-      // 4. Google Calendar link handling (forces Chrome browser tab on Android)
+      // 4. Google Calendar link handling (forces desktop web UI to show "Add calendar" prompt)
       const gcalBtn = document.getElementById('gcal-btn');
       const isAndroid = /Android/i.test(navigator.userAgent);
       
-      const targetGcalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
+      // We append mode=DESKTOP & pli=1 so Google Calendar doesn't redirect to mobile web view
+      const desktopGcalPath = `calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(httpIcsUrl)}&mode=DESKTOP`;
 
       if (isAndroid) {
-        // Construct an Android Intent URI that explicitly forces Chrome package execution
-        const androidIntentUrl = `intent://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}#Intent;scheme=https;package=com.android.chrome;end;`;
-        gcalBtn.href = androidIntentUrl;
+        // Intent forces Chrome browser opening AND prevents redirection to mobile-stripped UI
+        gcalBtn.href = `intent://${desktopGcalPath}#Intent;scheme=https;package=com.android.chrome;end;`;
       } else {
-        gcalBtn.href = targetGcalUrl;
+        gcalBtn.href = `https://${desktopGcalPath}`;
       }
 
       // 5. Fetch and render README.md dynamically
