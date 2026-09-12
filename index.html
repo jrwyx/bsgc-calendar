@@ -83,18 +83,20 @@
       // Apple / iOS button
       document.getElementById('apple-btn').href = webcalUrl;
 
-      // 4. Google Calendar link handling (compatibility across multiple accounts/tablets)
+      // 4. Google Calendar link handling (forces web browser tab on Android)
       const gcalBtn = document.getElementById('gcal-btn');
-      const gcalWebUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}`;
+      const isAndroid = /Android/i.test(navigator.userAgent);
 
-      gcalBtn.href = gcalWebUrl;
+      const targetUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}`;
+      // Bypasses Android app intent interception by routing through google.com redirector
+      const androidBypassUrl = `https://www.google.com/url?q=${encodeURIComponent(targetUrl)}`;
+
+      const finalGcalUrl = isAndroid ? androidBypassUrl : targetUrl;
+      gcalBtn.href = finalGcalUrl;
 
       gcalBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        const newWin = window.open(gcalWebUrl, '_blank', 'noopener,noreferrer');
-        if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
-          window.location.href = gcalWebUrl;
-        }
+        window.open(finalGcalUrl, '_blank', 'noopener,noreferrer');
       });
 
       // 5. Fetch and render README.md dynamically
