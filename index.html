@@ -99,7 +99,10 @@
         })
         .then(markdown => {
           marked.setOptions({ gfm: true, breaks: true });
-          document.getElementById('readme-content').innerHTML = marked.parse(markdown);
+          return Promise.resolve(marked.parse(markdown));
+        })
+        .then(html => {
+          document.getElementById('readme-content').innerHTML = html;
         })
         .catch(err => {
           console.error('Failed to load README.md:', err);
