@@ -2,7 +2,10 @@
 
 An automated Python scraper that extracts school events from the British School of Gran Canaria (BSGC) **CALENDAR** [website](https://bs-gc.com/en/school-life/calendar).
 
-It generates an RFC 5545-compliant `.ics` calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
+It generates an RFC 5545-compliant [`bsgc_calendar.ics`](https://jrwyx.github.io/bsgc-calendar/bsgc_calendar.ics) calendar feed, and publishes it via GitHub Pages for easy subscription in Google Calendar, Apple Calendar, and Outlook.
+
+The calendar feed is published here:
+- [https://jrwyx.github.io/bsgc-calendar/](https://jrwyx.github.io/bsgc-calendar/)
 
 The repository can be found here:
 - [https://github.com/jrwyx/bsgc-calendar](https://github.com/jrwyx/bsgc-calendar)
@@ -38,7 +41,7 @@ The repository can be found here:
 
 The workflow (.github/workflows/update_calendar.yml) executes automatically:
 - Every 5-6 hours via GitHub Actions cron.
-- Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
+- Applies a randomized delay (0 to 60 minutes) before requesting data to avoid predictable server hits.
 - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
 
 
