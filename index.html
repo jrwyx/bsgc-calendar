@@ -28,7 +28,7 @@
 
   <main class="container">
     <header class="site-header">
-      <h1 class="site-title">BSGC School Calendar</h1>
+      <h1 class="site-title">BSGC School Calendar00</h1>
       <div class="btn-group">
         <!-- Google Calendar Button -->
         <a id="gcal-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn">
@@ -87,7 +87,7 @@
       const gcalBtn = document.getElementById('gcal-btn');
       const isAndroid = /Android/i.test(navigator.userAgent);
       
-      const targetGcalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}`;
+      const targetGcalUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
 
       if (isAndroid) {
         // Construct an Android Intent URI that explicitly forces Chrome package execution
