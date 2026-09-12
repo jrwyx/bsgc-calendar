@@ -85,7 +85,7 @@
 
       // 4. Google Calendar link handling (forces browser web tab on Android)
       const gcalBtn = document.getElementById('gcal-btn');
-      const gcalWebUrl = `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(httpIcsUrl)}`;
+      const gcalWebUrl = `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(webcalUrl)}`;
 
       gcalBtn.href = gcalWebUrl;
 
