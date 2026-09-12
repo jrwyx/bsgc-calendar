@@ -87,7 +87,7 @@
       const isAndroid = /Android/i.test(navigator.userAgent);
       const gcalBtn = document.getElementById('gcal-btn');
 
-      const targetUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}`;
+      const targetUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
       const androidBypassUrl = `https://www.google.com/url?q=${encodeURIComponent(targetUrl)}`;
 
       gcalBtn.href = isAndroid ? androidBypassUrl : targetUrl;
