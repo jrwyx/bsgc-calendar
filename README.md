@@ -38,7 +38,7 @@ The repository can be found here:
 
 The workflow (.github/workflows/update_calendar.yml) executes automatically:
 - Every 5-6 hours via GitHub Actions cron.
-- Applies a randomized delay (0 to 30 minutes) before requesting data to avoid predictable server hits.
+- Applies a randomized delay (0 to 60 minutes) before requesting data to avoid predictable server hits.
 - Commits and pushes changes to bsgc_calendar.ics only if new or updated events are found.
 
 
