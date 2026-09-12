@@ -88,7 +88,7 @@
       const isAndroid = /Android/i.test(navigator.userAgent);
       
       // We append mode=DESKTOP & pli=1 so Google Calendar doesn't redirect to mobile web view
-      const desktopGcalPath = `calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(httpIcsUrl)}&mode=DESKTOP`;
+      const desktopGcalPath = `calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(webcalUrl)}&mode=DESKTOP`;
 
       if (isAndroid) {
         // Intent forces Chrome browser opening AND prevents redirection to mobile-stripped UI
