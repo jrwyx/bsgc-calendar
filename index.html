@@ -114,6 +114,7 @@
       const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
 
       const calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ FullCalendarICalendar ],
         initialView: 'dayGridMonth',
         locale: userLang,
         firstDay: 1,
