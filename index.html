@@ -44,7 +44,7 @@
         </a>
 
         <!-- Download ICS Button -->
-        <a id="sub-link" href="#" class="btn">
+        <a id="sub-link" href="#" download="bsgc_calendar.ics" class="btn">
           <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -71,7 +71,7 @@
 
       // 3. Webcal protocol link for Apple / iOS & Google Calendar
       const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
-      
+
       // Apple / iOS button
       document.getElementById('apple-btn').href = webcalUrl;
 
@@ -83,8 +83,6 @@
       const androidBypassUrl = `https://www.google.com/url?q=${encodeURIComponent(targetUrl)}`;
 
       gcalBtn.href = isAndroid ? androidBypassUrl : targetUrl;
-      gcalBtn.target = "_blank";
-      gcalBtn.rel = "noopener noreferrer";
 
       if (isAndroid) {
         gcalBtn.addEventListener('click', function(e) {
@@ -92,7 +90,7 @@
           window.open(androidBypassUrl, '_blank', 'noopener,noreferrer');
         });
       }
-      
+
       // 5. Fetch and render README.md dynamically
       fetch('./README.md')
         .then(response => {
@@ -113,15 +111,18 @@
 
       const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
 
+      // Safely access the global plugin object provided by CDN script
+      const icalPlugin = FullCalendar.ICalendar || window.FullCalendarICalendar;
+
       const calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ FullCalendarICalendar ],
+        plugins: icalPlugin ? [ icalPlugin ] : [],
         initialView: 'dayGridMonth',
         locale: userLang,
         firstDay: 1,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: isMobile ? 'dayGridMonth,listMonth' : 'dayGridMonth,listMonth'
+          right: 'dayGridMonth,listMonth'
         },
         events: {
           url: fullIcsUrl,
