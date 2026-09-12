@@ -63,23 +63,25 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Get full absolute URL of the .ics file
-      const fullIcsUrl = new URL('bsgc_calendar.ics', window.location.href).href;
+      // 1. Get exact URL of the bsgc_calendar.ics file relative to the current folder
+      const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+      const fullIcsUrl = baseUrl + 'bsgc_calendar.ics';
 
       // 2. Direct .ics download link
       document.getElementById('sub-link').href = fullIcsUrl;
 
       // 3. Webcal protocol link for Apple / iOS & Google Calendar
       const webcalUrl = fullIcsUrl.replace(/^https?:\/\//, 'webcal://');
+      const httpIcsUrl = fullIcsUrl.replace(/^https?:\/\//, 'https://');
 
       // Apple / iOS button
       document.getElementById('apple-btn').href = webcalUrl;
 
-      // 4. Google Calendar link handling
+      // 4. Google Calendar link handling (fixed Desktop + Android)
       const isAndroid = /Android/i.test(navigator.userAgent);
       const gcalBtn = document.getElementById('gcal-btn');
 
-      const targetUrl = `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(webcalUrl)}`;
+      const targetUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(httpIcsUrl)}`;
       const androidBypassUrl = `https://www.google.com/url?q=${encodeURIComponent(targetUrl)}`;
 
       gcalBtn.href = isAndroid ? androidBypassUrl : targetUrl;
@@ -92,7 +94,7 @@
       }
 
       // 5. Fetch and render README.md dynamically
-      fetch('./README.md')
+      fetch(baseUrl + 'README.md')
         .then(response => {
           if (!response.ok) throw new Error('README.md file not found');
           return response.text();
@@ -109,12 +111,10 @@
         });
 
       // 6. FullCalendar Setup
-      const isMobile = window.innerWidth < 768;
       const calendarEl = document.getElementById('calendar');
-
       const userLang = (navigator.language || navigator.userLanguage || 'es').split('-')[0];
 
-      // Safely access the global plugin object provided by CDN script
+      // Retrieve plugin reference safely from FullCalendar global scope
       const icalPlugin = FullCalendar.ICalendar || window.FullCalendarICalendar;
 
       const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -136,6 +136,9 @@
             info.jsEvent.preventDefault();
             window.open(info.event.url, "_blank");
           }
+        },
+        eventSourceFailure: function(error) {
+          console.error('Failed to load .ics file:', error);
         }
       });
 
